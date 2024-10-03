@@ -260,10 +260,10 @@
   <ItemGroup>
     <Compile Include="CoronationScene.cs" />
     <Compile Include="CustomStartingPositions_Patch.cs" />
-    <Compile Include="SvadiaParentPatch.cs" />
-    <Compile Include="SubModule.cs" />
     <Compile Include="NordParentPatch.cs" />
+    <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SvadiaParentPatch.cs" />
     <Compile Include="YouthCavalryOnCondition_Svadia_Patch.cs" />
     <Compile Include="YouthChieftainOnCondition_Nord_Patch.cs" />
     <Compile Include="YouthGarrisonOnCondition_Patch.cs" />
