@@ -10,7 +10,7 @@ using TaleWorlds.Library;
 namespace Anno_Domini_Calradia_1084.Patches
 {
     // Token: 0x02000003 RID: 3
-    internal class CharacterCreationPatches
+    internal class BodyProperty_Patch
     {
         // Token: 0x02000008 RID: 8
         [HarmonyPatch(typeof(CharacterCreationCultureStageVM), "InitializePlayersFaceKeyAccordingToCultureSelection")]
@@ -30,7 +30,7 @@ namespace Anno_Domini_Calradia_1084.Patches
                 dic.Add(cultures.First((CultureObject x) => x.StringId == "svadia"), "<BodyProperties version='4' age='25.84' weight='0.5000' build='0.5000'  key='0026B80E4000300F7C7664876753888A574A866254C69643A45D951A48A7A72700777603073C7D4300000000000000000000000000000000000000003AF43082'/>");
                 dic.Add(cultures.First((CultureObject x) => x.StringId == "nord"), "<BodyProperties version='4' age='25.84' weight='0.5000' build='0.5000'  key='00006802800010045C472B462BBE28B7E9E68689B9C76DD674414A4934693BA70077760307A7B7A500000000000000000000000000000000000000003CFC6002'/>");
                 BodyProperties properties;
-                bool flag = BodyProperties.FromString(dic[selectedCulture.Culture], ref properties);
+                bool flag = BodyProperties.FromString(dic[selectedCulture.Culture], out properties);
                 if (flag)
                 {
                     CharacterObject.PlayerCharacter.UpdatePlayerCharacterBodyProperties(properties, CharacterObject.PlayerCharacter.Race, CharacterObject.PlayerCharacter.IsFemale);
