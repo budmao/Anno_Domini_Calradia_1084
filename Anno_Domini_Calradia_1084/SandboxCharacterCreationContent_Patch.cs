@@ -4,7 +4,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Anno_Domini_Calradia_1084.CC
+namespace Anno_Domini_Calradia_1084
 {
     // Token: 0x02000005 RID: 5
     internal class SandboxCharacterCreationContent_Patch : SandboxCharacterCreationContent
