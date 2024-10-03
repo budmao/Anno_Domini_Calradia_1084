@@ -6,7 +6,8 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084.CC
 {
-    // Token: 0x02000005 RID: 5    internal class SandboxCharacterCreationContent_Patch : SandboxCharacterCreationContent
+    // Token: 0x02000005 RID: 5
+    internal class CreationContent : SandboxCharacterCreationContent
     {
         // Token: 0x06000008 RID: 8 RVA: 0x0000240C File Offset: 0x0000060C
         protected override void OnInitialized(CharacterCreation characterCreation)
@@ -17,6 +18,8 @@ namespace Anno_Domini_Calradia_1084.CC
             base.AddYouthMenu(characterCreation);
             base.AddAdulthoodMenu(characterCreation);
             base.AddAgeSelectionMenu(characterCreation);
+            this._startingPoints.Add("svadia", new Vec2(300.8686f, 258.6073f));
+            this._startingPoints.Add("nord", new Vec2(444.4771f, 516.6031f));
         }
 
         // Token: 0x06000009 RID: 9 RVA: 0x000024EC File Offset: 0x000006EC

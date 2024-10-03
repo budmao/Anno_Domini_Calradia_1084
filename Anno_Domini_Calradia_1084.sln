@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anno_Domini_Calradia_1084", "Anno_Domini_Calradia_1084\Anno_Domini_Calradia_1084.csproj", "{2C7CE79A-6607-474B-936E-E269BDA0FC2C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ADC", "ADC", "{7C63CFB0-35D5-4918-B4B2-B6A36568994A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C7CE79A-6607-474B-936E-E269BDA0FC2C} = {7C63CFB0-35D5-4918-B4B2-B6A36568994A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20831D1F-32BC-4A2F-87F5-509B24879C0B}

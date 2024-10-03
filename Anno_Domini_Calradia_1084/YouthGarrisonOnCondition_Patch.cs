@@ -6,58 +6,61 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.CharacterCreationContent;
 
-[HarmonyPatch(typeof(SandboxCharacterCreationContent))] // Targeting the correct class
-public static class YouthGarrisonOnCondition_Patch
+namespace Anno_Domini_Calradia_1084.CC
 {
-    // Patch for YouthGarrisonOnCondition
-    [HarmonyPatch("YouthGarrisonOnCondition")]
-    [HarmonyPrefix]
-    public static bool YouthGarrisonOnConditionPrefix(ref bool __result, SandboxCharacterCreationContent __instance)
+    [HarmonyPatch(typeof(SandboxCharacterCreationContent))] // Targeting the correct class
+    public static class YouthGarrisonOnCondition_Patch
     {
-        string selectedCultureId = __instance.GetSelectedCulture().StringId;
-
-        // Check for the specified cultures
-        if (selectedCultureId == "empire" ||
-            selectedCultureId == "vlandia" ||
-            selectedCultureId == "svadia" ||
-            selectedCultureId == "nord" ||
-            selectedCultureId == "battania" ||
-            selectedCultureId == "sturgia" ||
-            selectedCultureId == "aserai" ||
-            selectedCultureId == "khuzait")
+        // Patch for YouthGarrisonOnCondition
+        [HarmonyPatch("YouthGarrisonOnCondition")]
+        [HarmonyPrefix]
+        public static bool YouthGarrisonOnConditionPrefix(ref bool __result, SandboxCharacterCreationContent __instance)
         {
-            __result = true; // Set result to true
+            string selectedCultureId = __instance.GetSelectedCulture().StringId;
+
+            // Check for the specified cultures
+            if (selectedCultureId == "empire" ||
+                selectedCultureId == "vlandia" ||
+                selectedCultureId == "svadia" ||
+                selectedCultureId == "nord" ||
+                selectedCultureId == "battania" ||
+                selectedCultureId == "sturgia" ||
+                selectedCultureId == "aserai" ||
+                selectedCultureId == "khuzait")
+            {
+                __result = true; // Set result to true
+                return false; // Skip the original method
+            }
+
+            // Set to false if none match, ensuring original method logic is preserved
+            __result = false;
             return false; // Skip the original method
         }
 
-        // Set to false if none match, ensuring original method logic is preserved
-        __result = false;
-        return false; // Skip the original method
-    }
-
-    // Patch for YouthOtherGarrisonOnCondition
-    [HarmonyPatch("YouthOtherGarrisonOnCondition")]
-    [HarmonyPrefix]
-    public static bool YouthOtherGarrisonOnConditionPrefix(ref bool __result, SandboxCharacterCreationContent __instance)
-    {
-        string selectedCultureId = __instance.GetSelectedCulture().StringId;
-
-        // Check for the cultures that should return true
-        if (selectedCultureId != "empire" &&
-            selectedCultureId != "vlandia" &&
-            selectedCultureId != "svadia" &&
-            selectedCultureId != "nord" &&
-            selectedCultureId != "battania" &&
-            selectedCultureId != "sturgia" &&
-            selectedCultureId != "aserai" &&
-            selectedCultureId != "khuzait")
+        // Patch for YouthOtherGarrisonOnCondition
+        [HarmonyPatch("YouthOtherGarrisonOnCondition")]
+        [HarmonyPrefix]
+        public static bool YouthOtherGarrisonOnConditionPrefix(ref bool __result, SandboxCharacterCreationContent __instance)
         {
-            __result = true; // Set result to true
+            string selectedCultureId = __instance.GetSelectedCulture().StringId;
+
+            // Check for the cultures that should return true
+            if (selectedCultureId != "empire" &&
+                selectedCultureId != "vlandia" &&
+                selectedCultureId != "svadia" &&
+                selectedCultureId != "nord" &&
+                selectedCultureId != "battania" &&
+                selectedCultureId != "sturgia" &&
+                selectedCultureId != "aserai" &&
+                selectedCultureId != "khuzait")
+            {
+                __result = true; // Set result to true
+                return false; // Skip the original method
+            }
+
+            // Set to false if any match, ensuring original method logic is preserved
+            __result = false;
             return false; // Skip the original method
         }
-
-        // Set to false if any match, ensuring original method logic is preserved
-        __result = false;
-        return false; // Skip the original method
     }
 }
