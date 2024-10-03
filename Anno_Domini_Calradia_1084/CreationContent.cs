@@ -15,7 +15,7 @@ namespace Anno_Domini_Calradia_1084.CC
             this.AddParentsMenu(characterCreation);
             base.AddChildhoodMenu(characterCreation);
             base.AddEducationMenu(characterCreation);
-            base.AddYouthMenu(characterCreation);
+            CustomAddYouthMenu(characterCreation); // Call the custom method here
             base.AddAdulthoodMenu(characterCreation);
             base.AddAgeSelectionMenu(characterCreation);
             this._startingPoints.Add("svadia", new Vec2(379.0639f, 347.452f));
@@ -199,6 +199,44 @@ namespace Anno_Domini_Calradia_1084.CC
         {
             return base.GetSelectedCulture().StringId == "nord";
         }
+
+        // The custom method for adding the Youth menu
+        protected void CustomAddYouthMenu(CharacterCreation characterCreation)
+        {
+            CharacterCreationMenu characterCreationMenu = new CharacterCreationMenu(
+                new TextObject("{=ok8lSW6M}Youth", null),
+                new TextObject("{=youthIntro}Your youth was shaped by unique experiences.", null), // Replace with your actual introductory text
+                new CharacterCreationOnInit(this.YouthOnInit),
+                CharacterCreationMenu.MenuTypes.MultipleChoice
+            );
+
+            CharacterCreationCategory youthCategory = characterCreationMenu.AddMenuCategory(null);
+
+            // Add options to the youth category
+            youthCategory.AddCategoryOption(new TextObject("{=a8arFSra}trained with the infantryXX.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Bow,
+            DefaultSkills.Engineering
+                },
+                DefaultCharacterAttributes.Intelligence,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                null, // Removed the OnCondition
+                new CharacterCreationOnSelect(this.YouthInfantryOnConsequence), // Keep the OnSelect
+                new CharacterCreationApplyFinalEffects(this.YouthInfantryOnApply),
+                new TextObject("{=sYuN6hPD}XXAll of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
+                null,
+                0, 0, 0, 0, 0);
+
+            // Add more options for youth as needed...
+
+            characterCreation.AddNewMenu(characterCreationMenu);
+        }
+
+
+        // Additional methods (YouthOnInit, YouthCommanderOnCondition, etc.) should be defined here...
 
     }
 }
