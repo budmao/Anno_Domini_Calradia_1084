@@ -18,7 +18,7 @@ namespace Anno_Domini_Calradia_1084.CC
             base.AddYouthMenu(characterCreation);
             base.AddAdulthoodMenu(characterCreation);
             base.AddAgeSelectionMenu(characterCreation);
-            this._startingPoints.Add("svadia", new Vec2(300.8686f, 258.6073f));
+            this._startingPoints.Add("svadia", new Vec2(379.0639f, 347.452f));
             this._startingPoints.Add("nord", new Vec2(444.4771f, 516.6031f));
         }
 
