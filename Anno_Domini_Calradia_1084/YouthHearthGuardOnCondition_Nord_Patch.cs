@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.CharacterCreationContent;
 
-namespace Anno_Domini_Calradia_1084.CC
+namespace Anno_Domini_Calradia_1084.Patches
 {
 
     internal class YouthHearthGuardOnCondition_Nord_Patch

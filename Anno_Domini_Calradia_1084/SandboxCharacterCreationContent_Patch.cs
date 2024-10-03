@@ -4,9 +4,9 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Anno_Domini_Calradia_1084.CC
+namespace Anno_Domini_Calradia_1084.Patches
 {
-    // Token: 0x02000005 RID: 5    internal class SandboxCharacterCreationContent_Patch : SandboxCharacterCreationContent
+    // Token: 0x02000005 RID: 5   internal class SandboxCharacterCreationContent_Patch : SandboxCharacterCreationContent
     {
         // Token: 0x06000008 RID: 8 RVA: 0x0000240C File Offset: 0x0000060C
         protected override void OnInitialized(CharacterCreation characterCreation)

@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Anno_Domini_Calradia_1084.CC
+namespace Anno_Domini_Calradia_1084.Patches
 {
     internal class CoronationScene
     {

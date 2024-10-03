@@ -7,7 +7,7 @@ using HarmonyLib;
 using TaleWorlds.CampaignSystem.CharacterCreationContent; // Ensure this namespace is correct
 using TaleWorlds.CampaignSystem; // Add this if needed for other dependencies
 
-namespace Anno_Domini_Calradia_1084.CC
+namespace Anno_Domini_Calradia_1084.Patches
 {
     internal class YouthChieftainOnCondition_Nord_Battania_Khuzait_Patch
     {

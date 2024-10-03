@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Anno_Domini_Calradia_1084.CC
+namespace Anno_Domini_Calradia_1084.Patches
 {
     // Token: 0x02000028 RID: 40
     [HarmonyPatch(typeof(SandboxCharacterCreationContent))]

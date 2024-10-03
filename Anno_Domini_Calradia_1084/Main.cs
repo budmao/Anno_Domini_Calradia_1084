@@ -29,7 +29,7 @@ namespace Anno_Domini_Calradia_1084
             {
                 _initialStateOptions.Remove(sb);
             }
-            TaleWorlds.MountAndBlade.Module.CurrentModule.AddInitialStateOption(new InitialStateOption("SI", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
+            TaleWorlds.MountAndBlade.Module.CurrentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
             {
                 MBGameManager.StartNewGame(new GameManager());
             }, () => new ValueTuple<bool, TextObject>(TaleWorlds.MountAndBlade.Module.CurrentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
