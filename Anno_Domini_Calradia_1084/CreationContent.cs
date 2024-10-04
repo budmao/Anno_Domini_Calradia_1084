@@ -214,7 +214,7 @@ namespace Anno_Domini_Calradia_1084.CC
             CharacterCreationCategory youthCategory = characterCreationMenu.AddMenuCategory(null);
 
             // BodyGuard
-            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}served in a jarl's Household.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}served in a jarl's household.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Steward,
@@ -268,10 +268,10 @@ namespace Anno_Domini_Calradia_1084.CC
             youthCategory.AddCategoryOption(new TextObject("{=F2bgujPo}were a chieftain's servant.", null),
                 new MBList<SkillObject>
                 {
-            DefaultSkills.Riding,
-            DefaultSkills.Polearm
+            DefaultSkills.Steward,
+            DefaultSkills.Tactics
                 },
-                DefaultCharacterAttributes.Endurance,
+                DefaultCharacterAttributes.Cunning,
                 this.FocusToAdd,
                 this.SkillLevelToAdd,
                 this.AttributeLevelToAdd,
@@ -366,7 +366,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons, especially useful during sieges.", null),
                 null,
                 0, 0, 0, 0, 0);
-            // Outriders
+            // Outriders Bow
             youthCategory.AddCategoryOption(new TextObject("{=VlXOgIX6}rode with the scouts.", null),
                 new MBList<SkillObject>
                 {
@@ -383,7 +383,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new TextObject("{=888lmJqs}All of Calradia's kingdoms recognize the value of good light cavalry and horse archers, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a good bow so that you could fulfill their levy obligations.", null),
                 null,
                 0, 0, 0, 0, 0);
-            // OtherOutriders
+            // OtherOutriders Javelin?
             youthCategory.AddCategoryOption(new TextObject("{=VlXOgIX6}rode with the scouts.", null),
                 new MBList<SkillObject>
                 {
@@ -414,7 +414,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 null, // Removed the OnCondition
                 new CharacterCreationOnSelect(this.YouthInfantryOnConsequence), 
                 new CharacterCreationApplyFinalEffects(this.YouthInfantryOnApply),
-                new TextObject("{=sYuN6hPD}All of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
+                new TextObject("{=sYuN6hPD}Levy armed with spear and shield, drawn from smallholding farmers, have always been the backbone of most armies of Calradia.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Skirmisher
@@ -431,11 +431,11 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthSkirmisherOnCondition),
                 new CharacterCreationOnSelect(this.YouthSkirmisherOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthSkirmisherOnApply),
-                new TextObject("{=afH90aNs}Levy armed with spear and shield, drawn from smallholding farmers, have always been the backbone of most armies of Calradia.", null),
+                new TextObject("{=afH90aNs}Younger recruits, or those of a slighter build, or those too poor to buy shield and armor tend to join the skirmishers. Fighting with bow and javelin, they try to stay out of reach of the main enemy forces.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Kern
-            youthCategory.AddCategoryOption(new TextObject("{=cDWbwBwI}joined the kern.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=cDWbwBwI}joined the skirmishers.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Throwing,
@@ -448,7 +448,41 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthKernOnCondition),
                 new CharacterCreationOnSelect(this.YouthKernOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthKernOnApply),
-                new TextObject("{=tTb28jyU}Many Battanians fight as kern, versatile troops who could both harass the enemy line with their javelins or join in the final screaming charge once it weakened.", null),
+                new TextObject("{=tTb28jyU}Many Battanians fight as skirmishers, versatile troops who could both harass the enemy line with their javelins or join in the final screaming charge once it weakened.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // ForestDweller
+            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}dwelled in the forest.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.TwoHanded,
+            DefaultSkills.Crossbow
+                },
+                DefaultCharacterAttributes.Vigor,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthForestDwellerOnCondition),
+                new CharacterCreationOnSelect(this.YouthForestDwellerOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthForestDwellerOnApply),
+                new TextObject("{=ForestDweller}From a young age, you worked the dense forests, cutting wood and watching over the land. You learned the art of forestry, while also becoming attuned to the secrets of the wilderness. Whether felling trees or defending your home from dangers, you stood as a quiet protector.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // OtherOtherForestDweller
+            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}dwelled in the forest.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Polearm,
+            DefaultSkills.Crossbow
+                },
+                DefaultCharacterAttributes.Vigor,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthOtherForestDwellerOnCondition),
+                new CharacterCreationOnSelect(this.YouthOtherForestDwellerOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthOtherForestDwellerOnApply),
+                new TextObject("{=OtherOtherForestDweller}From a young age, you roamed the vast open fields, tending herds and exploring the wide horizons. You mastered the ways of the grasslands, learning to read the winds and the land. Whether guiding flocks or guarding your people from distant threats, you served as a vigilant wanderer, ever in tune with the open skies.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Camper
@@ -494,30 +528,70 @@ namespace Anno_Domini_Calradia_1084.CC
         "act_childhood_sharp"
     });
         }
-
         // Apply final effects after the youth choice has been made
         protected void YouthBodyGuardOnApply(CharacterCreation characterCreation)
         {
         }
-        // Check if the selected culture is Nord and if the YouthSailor option can be selected
+
+        // Sailor
         protected bool YouthSailorOnCondition()
         {
             return base.GetSelectedCulture().StringId == "nord";
         }
 
-        // Execute consequences after selecting the YouthSailor option
         protected void YouthSailorOnConsequence(CharacterCreation characterCreation)
         {
-            base.SelectedTitleType = 10;
+            base.SelectedTitleType = 9;
             this.RefreshPlayerAppearance(characterCreation);
             characterCreation.ChangeCharsAnimation(new List<string>
     {
         "act_childhood_sharp"
     });
         }
-        // Apply final effects after the youth choice has been made
         protected void YouthSailorOnApply(CharacterCreation characterCreation)
         {
         }
+        // ForestDweller
+        protected bool YouthForestDwellerOnCondition()
+        {
+            return base.GetSelectedCulture().StringId == "nord" && this._familyOccupationType != SandboxCharacterCreationContent.OccupationTypes.Retainer;
+        }
+
+        protected void YouthForestDwellerOnConsequence(CharacterCreation characterCreation)
+        {
+            base.SelectedTitleType = 7;
+            this.RefreshPlayerAppearance(characterCreation);
+            characterCreation.ChangeCharsAnimation(new List<string>
+    {
+        "act_childhood_sharp"
+    });
+        }
+
+
+        protected void YouthForestDwellerOnApply(CharacterCreation characterCreation)
+        {
+        }
+        // OtherForestDweller
+        protected bool YouthOtherForestDwellerOnCondition()
+        {
+            return base.GetSelectedCulture().StringId == "svadia" && this._familyOccupationType != SandboxCharacterCreationContent.OccupationTypes.Retainer;
+        }
+
+        protected void YouthOtherForestDwellerOnConsequence(CharacterCreation characterCreation)
+        {
+            base.SelectedTitleType = 7;
+            this.RefreshPlayerAppearance(characterCreation);
+            characterCreation.ChangeCharsAnimation(new List<string>
+    {
+        "act_childhood_sharp"
+    });
+        }
+
+
+        protected void YouthOtherForestDwellerOnApply(CharacterCreation characterCreation)
+        {
+        }
+
+
     }
 }
