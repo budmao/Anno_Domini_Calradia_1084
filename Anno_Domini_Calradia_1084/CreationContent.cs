@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TaleWorlds.CampaignSystem.CharacterCreationContent;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -40,20 +41,20 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your father was a trusted lieutenant of the local landowning aristocrat. He rode with the lord's cavalry, fighting as an armored lancer.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your father served as a loyal retainer to the local nobleman, riding with the lord's cavalry and engaging in battle as an armored rider.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Polearm,
                 DefaultSkills.Athletics
             };
             effectedAttribute = DefaultCharacterAttributes.Endurance;
-            svadiaCategory.AddCategoryOption(new TextObject("{=!}Sailors", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
+            svadiaCategory.AddCategoryOption(new TextObject("{=!}Town Wardens", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
             {
                 this.SetParentAndOccupationType(characterCreation, 2, SandboxCharacterCreationContent.OccupationTypes.Mercenary, "", "", true, true);
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family lived in a small house near one of the great ports of the Empire. Your father served as a sailor in the imperial navy, manning one of their mighty warships.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family has a long-standing reputation for training local militia in combat techniques and physical skills. Ensuring the community remains prepared to defend itself and fostering pride and resilience among the people.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Charm,
@@ -66,7 +67,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family were respected traders in a seaside town. They ran caravans to nearby towns, and discussed issues in the town council.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family thrived in the vibrant marketplace, trading goods from afar. Renowned for their keen negotiation skills, they built a reputation that attracted many customers, contributing significantly to the city's economy.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Athletics,
@@ -79,7 +80,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family tilled the soil in one of the coastal plains around the Perassic Sea. The grain they grew was sent to feed the vast cities of the Empire. On occasion, your father was levied to defend the village against bedouin raiders.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family worked the land, cultivating crops and raising livestock. Their days followed the rhythm of the seasons, tending to the fields and ensuring the harvest would sustain the village. Proficient in agriculture and safeguarding their land, they stood as vital members of the community.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Crossbow,
@@ -92,7 +93,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family owned their own workshop in the city, making goods from raw materials brought in from the countryside. Your father played an active if minor role in the town council, and also served in the militia.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family were skilled artisans, crafting goods in a small workshop nestled within the bustling streets of the city. They were respected artisans, transforming raw materials into sought-after goods for local and trade markets.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Roguery,
@@ -105,7 +106,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family numbered among the many poor migrants living in the slums that grow up outside the walls of imperial cities, making whatever money they could from a variety of odd jobs. Sometimes they did service for one of the Empire's many criminal gangs, and you had an early look at the dark side of life.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family was among the countless poor migrants living in the slums that sprung up outside the city walls, scraping by with whatever work they could find. At times, they fell into service for local criminal gangs, giving you an early glimpse into the harsh realities of life on the streets.", null), null, 0, 0, 0, 0, 0);
             CharacterCreationCategory nordCategory = menu.AddMenuCategory(new CharacterCreationOnCondition(this.NordCondition));
             effectedSkills = new MBList<SkillObject>
             {
@@ -113,39 +114,39 @@ namespace Anno_Domini_Calradia_1084.CC
                 DefaultSkills.OneHanded
             };
             effectedAttribute = DefaultCharacterAttributes.Social;
-            nordCategory.AddCategoryOption(new TextObject("{=!}Retainers of a Valtias", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
+            nordCategory.AddCategoryOption(new TextObject("{=!}Retainers of a Jarl", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
             {
                 this.SetParentAndOccupationType(characterCreation, 1, SandboxCharacterCreationContent.OccupationTypes.Retainer, "", "", true, true);
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your father served as a retainer to a Valtias, one of the noble lords of the Nord. He sat at his lord's table in the great hall, oversaw his estates, and stood by his side in the center of the shield wall in battle.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your father served as a huskarl, a loyal warrior in the retinue of a powerful Nord Jarl. He trained you in the ways of combat and the code of honor, instilling in you the values of bravery and loyalty that defined the bond between a huskarl and his lord.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Tactics,
                 DefaultSkills.Trade
             };
             effectedAttribute = DefaultCharacterAttributes.Cunning;
-            nordCategory.AddCategoryOption(new TextObject("{=!}Urban traders", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
+            nordCategory.AddCategoryOption(new TextObject("{=!}Sailors", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
             {
                 this.SetParentAndOccupationType(characterCreation, 2, SandboxCharacterCreationContent.OccupationTypes.Merchant, "", "", true, true);
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family were merchants who lived in one of the larger Nord settlements, organizing the trade of furs, honey and other forest products to faraway lands.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family hailed from a line of skilled sailors who navigated the icy North Sea. Growing up by the docks, you learned the ways of the sea from your father, who often spoke of distant lands and fierce storms.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Charm,
                 DefaultSkills.Medicine
             };
             effectedAttribute = DefaultCharacterAttributes.Intelligence;
-            nordCategory.AddCategoryOption(new TextObject("{=!}Forest shamans", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
+            nordCategory.AddCategoryOption(new TextObject("{=!}Herbalists", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
             {
                 this.SetParentAndOccupationType(characterCreation, 3, SandboxCharacterCreationContent.OccupationTypes.Healer, "", "", true, true);
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family were the keepers of the ancient knowledge of wood and spring, conveying the wisdom of the elder spirits to the Nord people. They tended the sick and counseled the powerful, resolving disputes and providing practical advice.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family upheld the ancient teachings of nature and the spirits of the springs, sharing their insights with the Nord people. They cared for the ill and advised the influential, mediating conflicts and offering sound guidance.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Athletics,
@@ -158,7 +159,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family dwelt in temporary camps on the edge of the forest, slashing and burning fields which they tended for a year or two before moving on. People like them were the pillars of the realm's economy, as well as the backbone of the levy.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}As free farmers of the Nord lands, your parents tilled the fertile soil on the village's outskirts. Your life was intertwined with the land, as you grew grains and tended to livestock, ensuring your community was well-fed. You learned to defend your homestead from raiders, taking pride in your independence and resilience.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Bow,
@@ -171,7 +172,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family dwelt amidst the dark, snowy forests of the Nord heartland. They made their living deep in the woods, hunting and trapping fox, hare, ermine, and other fur-bearing animals.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family resided in the shadowy, snow-covered woodlands of the Nord heartland. They earned their livelihood deep within the forest, hunting down foxes and hares, as well as cutting wood for fuel and trade.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
                 DefaultSkills.Roguery,
@@ -184,7 +185,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, delegate (CharacterCreation CharacterCreation)
             {
                 this.FinalizeParents();
-            }, new TextObject("{=!}Your family numbered among the many poor migrants living in the slums that grow up outside the walls of nord settlements, making whatever money they could from a variety of odd jobs. Sometimes they did service for one of the region's many criminal gangs.", null), null, 0, 0, 0, 0, 0);
+            }, new TextObject("{=!}Your family was one of the countless destitute migrants residing in the makeshift communities that sprang up beyond the boundaries of Nord settlements, scraping together a living through various odd jobs. At times, they found work for some of the numerous criminal organizations in the area.", null), null, 0, 0, 0, 0, 0);
 
         }
 
@@ -212,6 +213,23 @@ namespace Anno_Domini_Calradia_1084.CC
 
             CharacterCreationCategory youthCategory = characterCreationMenu.AddMenuCategory(null);
 
+            // BodyGuard
+            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}served in a jarl's Household.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Steward,
+            DefaultSkills.Tactics
+                },
+                DefaultCharacterAttributes.Cunning,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthBodyGuardOnCondition),
+                new CharacterCreationOnSelect(this.YouthBodyGuardOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthBodyGuardOnApply),
+                new TextObject("{=JarlBodyguard}From a young age, you stood watch over the jarl, sworn to protect him with your life. You learned the ways of combat and loyalty. Through feasts and battles, you became an unwavering shield, ready to face any threat that would dare challenge your lord's honor.", null),
+                null,
+                0, 0, 0, 0, 0);
             // Commander
             youthCategory.AddCategoryOption(new TextObject("{=CITG915d}joined a commander's staff.", null),
                 new MBList<SkillObject>
@@ -230,7 +248,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 null,
                 0, 0, 0, 0, 0);
             // Groom
-            youthCategory.AddCategoryOption(new TextObject("{=bhE2i6OU}served as a baron's groom.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=bhE2i6OU}served as a lord's groom.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Steward,
@@ -243,7 +261,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthGroomOnCondition),
                 new CharacterCreationOnSelect(this.YouthGroomOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthGroomOnApply),
-                new TextObject("{=iZKtGI6Y}Your family arranged for you to accompany a minor baron of the Vlandian kingdom. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                new TextObject("{=iZKtGI6Y}Your family arranged for you to accompany a minor lord of the local land. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Chieftain
@@ -263,6 +281,23 @@ namespace Anno_Domini_Calradia_1084.CC
                 new TextObject("{=7AYJ3SjK}Your family arranged for you to accompany a chieftain of your people. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
                 null,
                 0, 0, 0, 0, 0);
+            // Sailor
+            youthCategory.AddCategoryOption(new TextObject("{=GFUggps8}sailed with the longships.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Trade,
+            DefaultSkills.Athletics
+                },
+                DefaultCharacterAttributes.Social,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthSailorOnCondition),
+                new CharacterCreationOnSelect(this.YouthSailorOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthSailorOnApply),
+                new TextObject("{=VikingSailing}From a young age, you were raised in the shadow of longships. You learned to navigate the treacherous waters of the North Sea, becoming familiar with the ways of the sea and the call of adventure. Whether raiding distant shores or trading with neighboring tribes, the thrill of the ocean became a part of your very soul.", null),
+                null,
+                0, 0, 0, 0, 0);
             // Cavalry
             youthCategory.AddCategoryOption(new TextObject("{=h2KnarLL}trained with the cavalry.", null),
                 new MBList<SkillObject>
@@ -277,7 +312,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthCavalryOnCondition),
                 new CharacterCreationOnSelect(this.YouthCavalryOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthCavalryOnApply),
-                new TextObject("{=7cHsIMLP}You could never have bought the equipment on your own, but you were a good enough rider so that the local lord lent you a horse and equipment. You joined the armored cavalry, training with the lance.", null),
+                new TextObject("{=7cHsIMLP}You could never have afforded the equipment on your own, but your skill as a rider earned you the favor of the local lord, who provided you with a horse and gear. You joined the cavalry, honing your skills with the spear.", null),
                 null,
                 0, 0, 0, 0, 0);
             // HearthGuard
@@ -366,20 +401,20 @@ namespace Anno_Domini_Calradia_1084.CC
                 null,
                 0, 0, 0, 0, 0);
             // Infantry
-            youthCategory.AddCategoryOption(new TextObject("{=a8arFSra}trained with the infantryX.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=a8arFSra}trained with the infantry.", null),
                 new MBList<SkillObject>
                 {
-            DefaultSkills.Bow,
-            DefaultSkills.Engineering
+            DefaultSkills.Polearm,
+            DefaultSkills.OneHanded
                 },
-                DefaultCharacterAttributes.Intelligence,
+                DefaultCharacterAttributes.Vigor,
                 this.FocusToAdd,
                 this.SkillLevelToAdd,
                 this.AttributeLevelToAdd,
                 null, // Removed the OnCondition
                 new CharacterCreationOnSelect(this.YouthInfantryOnConsequence), 
                 new CharacterCreationApplyFinalEffects(this.YouthInfantryOnApply),
-                new TextObject("{=sYuN6hPD}XAll of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
+                new TextObject("{=sYuN6hPD}All of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Skirmisher
@@ -436,8 +471,6 @@ namespace Anno_Domini_Calradia_1084.CC
 
 
 
-
-
             // Add more options for youth as needed...
 
             characterCreation.AddNewMenu(characterCreationMenu);
@@ -445,6 +478,46 @@ namespace Anno_Domini_Calradia_1084.CC
 
 
         // Additional methods (YouthOnInit, YouthCommanderOnCondition, etc.) should be defined here...
+        // Check if the selected culture is Nord and if the YouthBodyGuard option can be selected
+        protected bool YouthBodyGuardOnCondition()
+        {
+            return base.GetSelectedCulture().StringId == "nord" && this._familyOccupationType == SandboxCharacterCreationContent.OccupationTypes.Retainer;
+        }
 
+        // Execute consequences after selecting the YouthBodyguard option
+        protected void YouthBodyGuardOnConsequence(CharacterCreation characterCreation)
+        {
+            base.SelectedTitleType = 10;
+            this.RefreshPlayerAppearance(characterCreation);
+            characterCreation.ChangeCharsAnimation(new List<string>
+    {
+        "act_childhood_sharp"
+    });
+        }
+
+        // Apply final effects after the youth choice has been made
+        protected void YouthBodyGuardOnApply(CharacterCreation characterCreation)
+        {
+        }
+        // Check if the selected culture is Nord and if the YouthSailor option can be selected
+        protected bool YouthSailorOnCondition()
+        {
+            return base.GetSelectedCulture().StringId == "nord";
+        }
+
+        // Execute consequences after selecting the YouthSailor option
+        protected void YouthSailorOnConsequence(CharacterCreation characterCreation)
+        {
+            base.SelectedTitleType = 10;
+            this.RefreshPlayerAppearance(characterCreation);
+            characterCreation.ChangeCharsAnimation(new List<string>
+    {
+        "act_childhood_sharp"
+    });
+        }
+        // Apply final effects after the youth choice has been made
+        protected void YouthSailorOnApply(CharacterCreation characterCreation)
+        {
+        }
     }
 }
