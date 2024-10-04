@@ -260,7 +260,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthChieftainOnCondition),
                 new CharacterCreationOnSelect(this.YouthChieftainOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthChieftainOnApply),
-                new TextObject("{=iZKtGI6Y}Your family arranged for you to accompany a minor baron of the Vlandian kingdom. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                new TextObject("{=7AYJ3SjK}Your family arranged for you to accompany a chieftain of your people. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Cavalry
@@ -277,7 +277,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthCavalryOnCondition),
                 new CharacterCreationOnSelect(this.YouthCavalryOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthCavalryOnApply),
-                new TextObject("{=7AYJ3SjK}Your family arranged for you to accompany a chieftain of your people. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                new TextObject("{=7cHsIMLP}You could never have bought the equipment on your own, but you were a good enough rider so that the local lord lent you a horse and equipment. You joined the armored cavalry, training with the lance.", null),
                 null,
                 0, 0, 0, 0, 0);
             // HearthGuard
