@@ -205,15 +205,168 @@ namespace Anno_Domini_Calradia_1084.CC
         {
             CharacterCreationMenu characterCreationMenu = new CharacterCreationMenu(
                 new TextObject("{=ok8lSW6M}Youth", null),
-                new TextObject("{=youthIntro}Your youth was shaped by unique experiences.", null), // Replace with your actual introductory text
+                new TextObject("{=youthIntro}As a youngster growing up in Calradia, war was never too far away. You...", null), // Replace with your actual introductory text
                 new CharacterCreationOnInit(this.YouthOnInit),
                 CharacterCreationMenu.MenuTypes.MultipleChoice
             );
 
             CharacterCreationCategory youthCategory = characterCreationMenu.AddMenuCategory(null);
 
-            // Add options to the youth category
-            youthCategory.AddCategoryOption(new TextObject("{=a8arFSra}trained with the infantryXX.", null),
+            // Commander
+            youthCategory.AddCategoryOption(new TextObject("{=CITG915d}joined a commander's staff.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Steward,
+            DefaultSkills.Tactics
+                },
+                DefaultCharacterAttributes.Cunning,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthCommanderOnCondition),
+                new CharacterCreationOnSelect(this.YouthCommanderOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthCommanderOnApply),
+                new TextObject("{=Ay0G3f7I}Your family arranged for you to be part of the staff of an imperial strategos. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Groom
+            youthCategory.AddCategoryOption(new TextObject("{=bhE2i6OU}served as a baron's groom.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Steward,
+            DefaultSkills.Tactics
+                },
+                DefaultCharacterAttributes.Cunning,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthGroomOnCondition),
+                new CharacterCreationOnSelect(this.YouthGroomOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthGroomOnApply),
+                new TextObject("{=iZKtGI6Y}Your family arranged for you to accompany a minor baron of the Vlandian kingdom. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Chieftain
+            youthCategory.AddCategoryOption(new TextObject("{=F2bgujPo}were a chieftain's servant.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Riding,
+            DefaultSkills.Polearm
+                },
+                DefaultCharacterAttributes.Endurance,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthChieftainOnCondition),
+                new CharacterCreationOnSelect(this.YouthChieftainOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthChieftainOnApply),
+                new TextObject("{=iZKtGI6Y}Your family arranged for you to accompany a minor baron of the Vlandian kingdom. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Cavalry
+            youthCategory.AddCategoryOption(new TextObject("{=h2KnarLL}trained with the cavalry.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Riding,
+            DefaultSkills.Polearm
+                },
+                DefaultCharacterAttributes.Endurance,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthCavalryOnCondition),
+                new CharacterCreationOnSelect(this.YouthCavalryOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthCavalryOnApply),
+                new TextObject("{=7AYJ3SjK}Your family arranged for you to accompany a chieftain of your people. You were not given major responsibilities - mostly carrying messages and tending to his horse -- but it did give you a chance to see how campaigns were planned and men were deployed in battle.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // HearthGuard
+            youthCategory.AddCategoryOption(new TextObject("{=zsC2t5Hb}trained with the hearth guard.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Riding,
+            DefaultSkills.Polearm
+                },
+                DefaultCharacterAttributes.Endurance,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthHearthGuardOnCondition),
+                new CharacterCreationOnSelect(this.YouthHearthGuardOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthHearthGuardOnApply),
+                new TextObject("{=RmbWW6Bm}You were a big and imposing enough youth that the chief's guard allowed you to train alongside them, in preparation to join them some day.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Garrison Crossbow
+            youthCategory.AddCategoryOption(new TextObject("{=aTncHUfL}stood guard with the garrisons.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Crossbow,
+            DefaultSkills.Engineering
+                },
+                DefaultCharacterAttributes.Intelligence,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthGarrisonOnCondition),
+                new CharacterCreationOnSelect(this.YouthGarrisonOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthGarrisonOnApply),
+                new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons, especially useful during sieges.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Garrison Bow
+            youthCategory.AddCategoryOption(new TextObject("{=aTncHUfL}stood guard with the garrisons.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Bow,
+            DefaultSkills.Engineering
+                },
+                DefaultCharacterAttributes.Intelligence,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthOtherGarrisonOnCondition),
+                new CharacterCreationOnSelect(this.YouthOtherGarrisonOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthOtherGarrisonOnApply),
+                new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons, especially useful during sieges.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Outriders
+            youthCategory.AddCategoryOption(new TextObject("{=VlXOgIX6}rode with the scouts.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Riding,
+            DefaultSkills.Bow
+                },
+                DefaultCharacterAttributes.Endurance,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthOutridersOnCondition),
+                new CharacterCreationOnSelect(this.YouthOutridersOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthOutridersOnApply),
+                new TextObject("{=888lmJqs}All of Calradia's kingdoms recognize the value of good light cavalry and horse archers, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a good bow so that you could fulfill their levy obligations.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // OtherOutriders
+            youthCategory.AddCategoryOption(new TextObject("{=VlXOgIX6}rode with the scouts.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Riding,
+            DefaultSkills.Bow
+                },
+                DefaultCharacterAttributes.Endurance,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthOtherOutridersOnCondition),
+                new CharacterCreationOnSelect(this.YouthOtherOutridersOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthOtherOutridersOnApply),
+                new TextObject("{=sYuN6hPD}All of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Infantry
+            youthCategory.AddCategoryOption(new TextObject("{=a8arFSra}trained with the infantryX.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Bow,
@@ -224,11 +377,66 @@ namespace Anno_Domini_Calradia_1084.CC
                 this.SkillLevelToAdd,
                 this.AttributeLevelToAdd,
                 null, // Removed the OnCondition
-                new CharacterCreationOnSelect(this.YouthInfantryOnConsequence), // Keep the OnSelect
+                new CharacterCreationOnSelect(this.YouthInfantryOnConsequence), 
                 new CharacterCreationApplyFinalEffects(this.YouthInfantryOnApply),
-                new TextObject("{=sYuN6hPD}XXAll of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
+                new TextObject("{=sYuN6hPD}XAll of Calradia's kingdoms recognize the value of good light cavalry, and are sure to recruit nomads and borderers with the skills to fulfill those duties. You were a good enough rider that your neighbors pitched in to buy you a small pony and a sheaf of javelins so that you could fulfill their levy obligations.", null),
                 null,
                 0, 0, 0, 0, 0);
+            // Skirmisher
+            youthCategory.AddCategoryOption(new TextObject("{=oMbOIPc9}joined the skirmishers.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Throwing,
+            DefaultSkills.OneHanded
+                },
+                DefaultCharacterAttributes.Control,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthSkirmisherOnCondition),
+                new CharacterCreationOnSelect(this.YouthSkirmisherOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthSkirmisherOnApply),
+                new TextObject("{=afH90aNs}Levy armed with spear and shield, drawn from smallholding farmers, have always been the backbone of most armies of Calradia.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Kern
+            youthCategory.AddCategoryOption(new TextObject("{=cDWbwBwI}joined the kern.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Throwing,
+            DefaultSkills.OneHanded
+                },
+                DefaultCharacterAttributes.Control,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthKernOnCondition),
+                new CharacterCreationOnSelect(this.YouthKernOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthKernOnApply),
+                new TextObject("{=tTb28jyU}Many Battanians fight as kern, versatile troops who could both harass the enemy line with their javelins or join in the final screaming charge once it weakened.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Camper
+            youthCategory.AddCategoryOption(new TextObject("{=GFUggps8}marched with the camp followers.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Roguery,
+            DefaultSkills.Throwing
+                },
+                DefaultCharacterAttributes.Cunning,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthCamperOnCondition),
+                new CharacterCreationOnSelect(this.YouthCamperOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthCamperOnApply),
+                new TextObject("{=64rWqBLN}You avoided service with one of the main forces of your realm's armies, but followed instead in the train - the troops' wives, lovers and servants, and those who make their living by caring for, entertaining, or cheating the soldiery.", null),
+                null,
+                0, 0, 0, 0, 0);
+
+
+
+
 
             // Add more options for youth as needed...
 
