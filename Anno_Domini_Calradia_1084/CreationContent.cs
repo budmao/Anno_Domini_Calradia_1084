@@ -4,6 +4,7 @@ using TaleWorlds.CampaignSystem.CharacterCreationContent;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using static TaleWorlds.MountAndBlade.Agent;
 
 namespace Anno_Domini_Calradia_1084.CC
 {
@@ -48,7 +49,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 DefaultSkills.Athletics
             };
             effectedAttribute = DefaultCharacterAttributes.Endurance;
-            svadiaCategory.AddCategoryOption(new TextObject("{=!}Town Wardens", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
+            svadiaCategory.AddCategoryOption(new TextObject("{=!}Town wardens", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
             {
                 this.SetParentAndOccupationType(characterCreation, 2, SandboxCharacterCreationContent.OccupationTypes.Mercenary, "", "", true, true);
             }, delegate (CharacterCreation CharacterCreation)
@@ -87,7 +88,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 DefaultSkills.Crafting
             };
             effectedAttribute = DefaultCharacterAttributes.Intelligence;
-            svadiaCategory.AddCategoryOption(new TextObject("{=!}Urban Artisans", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
+            svadiaCategory.AddCategoryOption(new TextObject("{=!}Urban artisans", null), effectedSkills, effectedAttribute, this.FocusToAdd, this.SkillLevelToAdd, this.AttributeLevelToAdd, null, delegate (CharacterCreation CharacterCreation)
             {
                 this.SetParentAndOccupationType(characterCreation, 5, SandboxCharacterCreationContent.OccupationTypes.Artisan, "", "", true, true);
             }, delegate (CharacterCreation CharacterCreation)
@@ -110,7 +111,7 @@ namespace Anno_Domini_Calradia_1084.CC
             CharacterCreationCategory nordCategory = menu.AddMenuCategory(new CharacterCreationOnCondition(this.NordCondition));
             effectedSkills = new MBList<SkillObject>
             {
-                DefaultSkills.Riding,
+                DefaultSkills.Bow,
                 DefaultSkills.OneHanded
             };
             effectedAttribute = DefaultCharacterAttributes.Social;
@@ -149,7 +150,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, new TextObject("{=!}Your family upheld the ancient teachings of nature and the spirits of the springs, sharing their insights with the Nord people. They cared for the ill and advised the influential, mediating conflicts and offering sound guidance.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
-                DefaultSkills.Athletics,
+                DefaultSkills.Riding,
                 DefaultSkills.Polearm
             };
             effectedAttribute = DefaultCharacterAttributes.Endurance;
@@ -162,7 +163,7 @@ namespace Anno_Domini_Calradia_1084.CC
             }, new TextObject("{=!}As free farmers of the Nord lands, your parents tilled the fertile soil on the village's outskirts. Your life was intertwined with the land, as you grew grains and tended to livestock, ensuring your community was well-fed. You learned to defend your homestead from raiders, taking pride in your independence and resilience.", null), null, 0, 0, 0, 0, 0);
             effectedSkills = new MBList<SkillObject>
             {
-                DefaultSkills.Bow,
+                DefaultSkills.Athletics,
                 DefaultSkills.Scouting
             };
             effectedAttribute = DefaultCharacterAttributes.Vigor;
@@ -214,7 +215,7 @@ namespace Anno_Domini_Calradia_1084.CC
             CharacterCreationCategory youthCategory = characterCreationMenu.AddMenuCategory(null);
 
             // BodyGuard
-            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}served in a jarl's household.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=!}served in a Jarl's household.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Steward,
@@ -227,7 +228,24 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthBodyGuardOnCondition),
                 new CharacterCreationOnSelect(this.YouthBodyGuardOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthBodyGuardOnApply),
-                new TextObject("{=JarlBodyguard}From a young age, you stood watch over the jarl, sworn to protect him with your life. You learned the ways of combat and loyalty. Through feasts and battles, you became an unwavering shield, ready to face any threat that would dare challenge your lord's honor.", null),
+                new TextObject("{=!}From a young age, you stood watch over the Jarl, sworn to protect him with your life. You learned the ways of combat and loyalty. Through feasts and battles, you became an unwavering shield, ready to face any threat that would dare challenge your lord's honor.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Retainer
+            youthCategory.AddCategoryOption(new TextObject("{=!}served as your lord's retainer.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Steward,
+            DefaultSkills.Tactics
+                },
+                DefaultCharacterAttributes.Cunning,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthRetainerOnCondition),
+                new CharacterCreationOnSelect(this.YouthRetainerOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthRetainerOnApply),
+                new TextObject("{=!}From a young age, you dedicated yourself to your lord’s service. Trained in obedience and duty, you served faithfully in their court, ever ready to carry out their will and defend their honor, no matter the cost.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Commander
@@ -282,7 +300,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 null,
                 0, 0, 0, 0, 0);
             // Sailor
-            youthCategory.AddCategoryOption(new TextObject("{=GFUggps8}sailed with the longships.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=!}sailed with the longships.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Trade,
@@ -346,7 +364,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthGarrisonOnCondition),
                 new CharacterCreationOnSelect(this.YouthGarrisonOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthGarrisonOnApply),
-                new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons, especially useful during sieges.", null),
+                new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in the use of crossbows, a weapon especially useful during sieges.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Garrison Bow
@@ -363,7 +381,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthOtherGarrisonOnCondition),
                 new CharacterCreationOnSelect(this.YouthOtherGarrisonOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthOtherGarrisonOnApply),
-                new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in missile weapons, especially useful during sieges.", null),
+                new TextObject("{=63TAYbkx}Urban troops spend much of their time guarding the town walls. Most of their training was in archery, a skill especially useful during sieges.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Outriders Bow
@@ -388,7 +406,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 new MBList<SkillObject>
                 {
             DefaultSkills.Riding,
-            DefaultSkills.Bow
+            DefaultSkills.Throwing
                 },
                 DefaultCharacterAttributes.Endurance,
                 this.FocusToAdd,
@@ -414,7 +432,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 null, // Removed the OnCondition
                 new CharacterCreationOnSelect(this.YouthInfantryOnConsequence), 
                 new CharacterCreationApplyFinalEffects(this.YouthInfantryOnApply),
-                new TextObject("{=sYuN6hPD}Levy armed with spear and shield, drawn from smallholding farmers, have always been the backbone of most armies of Calradia.", null),
+                new TextObject("{=sYuN6hPD}Levy armed with spear and shield, 8awn from smallholding farmers, have always been the backbone of most armies of Calradia.", null),
                 null,
                 0, 0, 0, 0, 0);
             // Skirmisher
@@ -452,7 +470,7 @@ namespace Anno_Domini_Calradia_1084.CC
                 null,
                 0, 0, 0, 0, 0);
             // ForestDweller
-            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}dwelled in the forest.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=!}dwelled in the forest.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.TwoHanded,
@@ -465,11 +483,11 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthForestDwellerOnCondition),
                 new CharacterCreationOnSelect(this.YouthForestDwellerOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthForestDwellerOnApply),
-                new TextObject("{=ForestDweller}From a young age, you worked the dense forests, cutting wood and watching over the land. You learned the art of forestry, while also becoming attuned to the secrets of the wilderness. Whether felling trees or defending your home from dangers, you stood as a quiet protector.", null),
+                new TextObject("{=!}From a young age, you worked the dense forests, cutting wood and watching over the land. You learned the art of forestry, while also becoming attuned to the secrets of the wilderness. Whether felling trees or defending your home from dangers, you stood as a quiet protector.", null),
                 null,
                 0, 0, 0, 0, 0);
             // OtherOtherForestDweller
-            youthCategory.AddCategoryOption(new TextObject("{=GFUggps9}dwelled in the forest.", null),
+            youthCategory.AddCategoryOption(new TextObject("{=!}roamed in the grasslands.", null),
                 new MBList<SkillObject>
                 {
             DefaultSkills.Polearm,
@@ -482,7 +500,24 @@ namespace Anno_Domini_Calradia_1084.CC
                 new CharacterCreationOnCondition(this.YouthOtherForestDwellerOnCondition),
                 new CharacterCreationOnSelect(this.YouthOtherForestDwellerOnConsequence),
                 new CharacterCreationApplyFinalEffects(this.YouthOtherForestDwellerOnApply),
-                new TextObject("{=OtherOtherForestDweller}From a young age, you roamed the vast open fields, tending herds and exploring the wide horizons. You mastered the ways of the grasslands, learning to read the winds and the land. Whether guiding flocks or guarding your people from distant threats, you served as a vigilant wanderer, ever in tune with the open skies.", null),
+                new TextObject("{=!}From a young age, you roamed the vast open fields, tending herds and exploring the wide horizons. You mastered the ways of the grasslands, learning to read the winds and the land. Whether guiding flocks or guarding your people from distant threats, you served as a vigilant wanderer, ever in tune with the open skies.", null),
+                null,
+                0, 0, 0, 0, 0);
+            // Thug
+            youthCategory.AddCategoryOption(new TextObject("{=!}caused mischief.", null),
+                new MBList<SkillObject>
+                {
+            DefaultSkills.Leadership,
+            DefaultSkills.Crossbow
+                },
+                DefaultCharacterAttributes.Vigor,
+                this.FocusToAdd,
+                this.SkillLevelToAdd,
+                this.AttributeLevelToAdd,
+                new CharacterCreationOnCondition(this.YouthThugOnCondition),
+                new CharacterCreationOnSelect(this.YouthThugOnConsequence),
+                new CharacterCreationApplyFinalEffects(this.YouthThugOnApply),
+                new TextObject("{=!}From a young age, you wandered the streets and back alleys, slinging stones and causing mischief wherever you roamed. You became adept at slipping through shadows, outwitting pursuers, and stirring up trouble. Whether leading a band of scamps or fleeing from authority, you thrived in the chaos, ever quick and cunning in the face of danger.\r\n", null),
                 null,
                 0, 0, 0, 0, 0);
             // Camper
@@ -532,7 +567,24 @@ namespace Anno_Domini_Calradia_1084.CC
         protected void YouthBodyGuardOnApply(CharacterCreation characterCreation)
         {
         }
+        // Retainer
+        protected bool YouthRetainerOnCondition()
+        {
+            return base.GetSelectedCulture().StringId == "sturgia" && this._familyOccupationType == SandboxCharacterCreationContent.OccupationTypes.Retainer;
+        }
 
+        protected void YouthRetainerOnConsequence(CharacterCreation characterCreation)
+        {
+            base.SelectedTitleType = 10;
+            this.RefreshPlayerAppearance(characterCreation);
+            characterCreation.ChangeCharsAnimation(new List<string>
+    {
+        "act_childhood_sharp"
+    });
+        }
+        protected void YouthRetainerOnApply(CharacterCreation characterCreation)
+        {
+        }
         // Sailor
         protected bool YouthSailorOnCondition()
         {
@@ -554,7 +606,7 @@ namespace Anno_Domini_Calradia_1084.CC
         // ForestDweller
         protected bool YouthForestDwellerOnCondition()
         {
-            return base.GetSelectedCulture().StringId == "nord" && this._familyOccupationType != SandboxCharacterCreationContent.OccupationTypes.Retainer;
+            return (base.GetSelectedCulture().StringId == "nord" || base.GetSelectedCulture().StringId == "battania") && this._familyOccupationType == SandboxCharacterCreationContent.OccupationTypes.Hunter; 
         }
 
         protected void YouthForestDwellerOnConsequence(CharacterCreation characterCreation)
@@ -574,7 +626,7 @@ namespace Anno_Domini_Calradia_1084.CC
         // OtherForestDweller
         protected bool YouthOtherForestDwellerOnCondition()
         {
-            return base.GetSelectedCulture().StringId == "svadia" && this._familyOccupationType != SandboxCharacterCreationContent.OccupationTypes.Retainer;
+            return (base.GetSelectedCulture().StringId == "svadia" || base.GetSelectedCulture().StringId == "vlandia" || base.GetSelectedCulture().StringId == "empire") && this._familyOccupationType == SandboxCharacterCreationContent.OccupationTypes.Farmer;
         }
 
         protected void YouthOtherForestDwellerOnConsequence(CharacterCreation characterCreation)
@@ -589,6 +641,28 @@ namespace Anno_Domini_Calradia_1084.CC
 
 
         protected void YouthOtherForestDwellerOnApply(CharacterCreation characterCreation)
+        {
+        }
+        // Thug
+        protected bool YouthThugOnCondition()
+        {
+            return (base.GetSelectedCulture().StringId == "sturgia" ||
+        base.GetSelectedCulture().StringId == "aserai") && (this._familyOccupationType == SandboxCharacterCreationContent.OccupationTypes.Vagabond || this._familyOccupationType == SandboxCharacterCreationContent.OccupationTypes.Artisan);
+
+        }
+
+        protected void YouthThugOnConsequence(CharacterCreation characterCreation)
+        {
+            base.SelectedTitleType = 7;
+            this.RefreshPlayerAppearance(characterCreation);
+            characterCreation.ChangeCharsAnimation(new List<string>
+    {
+        "act_childhood_sharp"
+    });
+        }
+
+
+        protected void YouthThugOnApply(CharacterCreation characterCreation)
         {
         }
 
