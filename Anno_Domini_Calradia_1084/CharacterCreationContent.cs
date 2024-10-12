@@ -8,6 +8,7 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084.CC
 {
+    /// based on CharacterCreationRedoneVanilla by Shinya
 
     [HarmonyPatch(typeof(SandboxCharacterCreationContent), "OnInitialized")]
     public class CharacterCreation_AD : SandboxCharacterCreationContent
