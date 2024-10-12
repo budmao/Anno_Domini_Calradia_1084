@@ -14,16 +14,16 @@ using TaleWorlds.SaveSystem.Load;
 namespace Anno_Domini_Calradia_1084.CC
 {
     // Token: 0x02000006 RID: 6
-    internal class GameManager : SandBoxGameManager
+    internal class GameManager_AD : SandBoxGameManager
     {
         // Token: 0x06000010 RID: 16 RVA: 0x000033F3 File Offset: 0x000015F3
-        public GameManager()
+        public GameManager_AD()
         {
             this._loadingSavedGame = false;
         }
 
         // Token: 0x06000011 RID: 17 RVA: 0x00003404 File Offset: 0x00001604
-        public GameManager(LoadResult loadedGameResult)
+        public GameManager_AD(LoadResult loadedGameResult)
         {
             this._loadingSavedGame = true;
             this._loadedGameResult = loadedGameResult;
@@ -90,7 +90,7 @@ namespace Anno_Domini_Calradia_1084.CC
         {
             CharacterCreationState gameState = Game.Current.GameStateManager.CreateState<CharacterCreationState>(new object[]
             {
-                new CreationContent()
+                new CharacterCreation_AD()
             });
             Game.Current.GameStateManager.CleanAndPushState(gameState, 0);
         }

@@ -31,7 +31,7 @@ namespace Anno_Domini_Calradia_1084
             }
             TaleWorlds.MountAndBlade.Module.CurrentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
             {
-                MBGameManager.StartNewGame(new GameManager());
+                MBGameManager.StartNewGame(new GameManager_AD());
             }, () => new ValueTuple<bool, TextObject>(TaleWorlds.MountAndBlade.Module.CurrentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
         }
     }

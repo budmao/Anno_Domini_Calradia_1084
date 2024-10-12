@@ -11,7 +11,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace Anno_Domini_Calradia_1084.Patches
 {
-    internal class CoronationScene
+    internal class CoronationScene_Patch
     {
         [HarmonyPatch(typeof(CampaignSceneNotificationHelper), "GetBodyguardOfCulture")]
         public class CampaignSceneNotificationHelper_GetBodyguardOfCulture_Patch

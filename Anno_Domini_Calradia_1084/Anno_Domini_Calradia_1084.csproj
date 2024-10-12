@@ -259,14 +259,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BodyProperty_Patch.cs" />
+    <Compile Include="CharacterCreationContent.cs" />
     <Compile Include="CoronationScene.cs" />
-    <Compile Include="CreationContent.cs" />
+    <Compile Include="CustomStartingPositions_Patch.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="YouthCavalryOnCondition_Svadia_Patch.cs" />
-    <Compile Include="YouthGroomOnCondition_Svadia_Patch.cs" />
-    <Compile Include="YouthOutridersOnCondition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

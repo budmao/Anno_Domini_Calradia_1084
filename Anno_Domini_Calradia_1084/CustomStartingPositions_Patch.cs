@@ -21,14 +21,14 @@ namespace Anno_Domini_Calradia_1084.Patches
             bool flag3 = culture.StringId == "nord";
             if (flag3)
             {
-                MobileParty.MainParty.Position2D = new Vec2(349.5959f, 547.5106f);
+                MobileParty.MainParty.Position2D = new Vec2(444.4771f, 516.6031f);
             }
             else
             {
                 bool flag4 = culture.StringId == "svadia";
                 if (flag4)
                 {
-                    MobileParty.MainParty.Position2D = new Vec2(374.0022f, 365.0201f);
+                    MobileParty.MainParty.Position2D = new Vec2(379.0639f, 347.452f);
                 }
                 else
                 {

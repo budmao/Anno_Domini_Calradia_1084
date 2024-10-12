@@ -510,7 +510,7 @@ namespace Anno_Domini_Calradia_1084.CC
             DefaultSkills.Leadership,
             DefaultSkills.Crossbow
                 },
-                DefaultCharacterAttributes.Vigor,
+                DefaultCharacterAttributes.Social,
                 this.FocusToAdd,
                 this.SkillLevelToAdd,
                 this.AttributeLevelToAdd,
