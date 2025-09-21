@@ -258,11 +258,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplySkillAndAttributeEffects_Patch.cs" />
     <Compile Include="BodyProperty_Patch.cs" />
+    <Compile Include="CachePossibleEliteRewardItems_Patch.cs" />
     <Compile Include="CharacterCreationContent.cs" />
-    <Compile Include="CoronationScene.cs" />
+    <Compile Include="CoronationScene_Patch.cs" />
     <Compile Include="CustomStartingPositions_Patch.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="FactionHelper_Patch.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

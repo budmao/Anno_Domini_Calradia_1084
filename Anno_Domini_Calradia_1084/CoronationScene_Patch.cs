@@ -52,6 +52,10 @@ namespace Anno_Domini_Calradia_1084.Patches
                 {
                     troopId = "AOM_empire_regular_st5";
                 }
+                else if (stringId == "balion")
+                {
+                    troopId = "AOM_balion_regular_t5";
+                }
                 __result = new SceneNotificationData.SceneNotificationCharacter(MBObjectManager.Instance.GetObject<CharacterObject>(troopId), null, default(BodyProperties), false, uint.MaxValue, uint.MaxValue, false);
                 return false;
             }

@@ -9,30 +9,34 @@ using TaleWorlds.MountAndBlade;
 
 namespace Anno_Domini_Calradia_1084
 {
-    // Token: 0x02000002 RID: 2
     public class Main : MBSubModuleBase
     {
-        // Token: 0x06000001 RID: 1 RVA: 0x00002050 File Offset: 0x00000250
         protected override void OnSubModuleLoad()
         {
             new Harmony("AnnoDomini1084").PatchAll();
-            List<InitialStateOption> _initialStateOptions = (List<InitialStateOption>)TaleWorlds.MountAndBlade.Module.CurrentModule.GetType().GetField("_initialStateOptions", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(TaleWorlds.MountAndBlade.Module.CurrentModule);
-            InitialStateOption story = _initialStateOptions.First((InitialStateOption x) => x.Id == "StoryModeNewGame");
-            InitialStateOption sb = _initialStateOptions.First((InitialStateOption x) => x.Id == "SandBoxNewGame");
-            bool flag = story != null;
-            if (flag)
+
+            var currentModule = TaleWorlds.MountAndBlade.Module.CurrentModule;
+            List<InitialStateOption> initialStateOptions = (List<InitialStateOption>)currentModule.GetType()
+                .GetField("_initialStateOptions", BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(currentModule);
+
+            InitialStateOption story = initialStateOptions.FirstOrDefault(x => x.Id == "StoryModeNewGame");
+            InitialStateOption sb = initialStateOptions.FirstOrDefault(x => x.Id == "SandBoxNewGame");
+
+            if (story != null)
             {
-                _initialStateOptions.Remove(story);
+                initialStateOptions.Remove(story);
             }
-            bool flag2 = sb != null;
-            if (flag2)
+
+            if (sb != null)
             {
-                _initialStateOptions.Remove(sb);
+                initialStateOptions.Remove(sb);
             }
-            TaleWorlds.MountAndBlade.Module.CurrentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
+
+            currentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
             {
                 MBGameManager.StartNewGame(new GameManager_AD());
-            }, () => new ValueTuple<bool, TextObject>(TaleWorlds.MountAndBlade.Module.CurrentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
+            }, () => new ValueTuple<bool, TextObject>(currentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
         }
     }
 }

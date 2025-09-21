@@ -13,39 +13,36 @@ using TaleWorlds.SaveSystem.Load;
 
 namespace Anno_Domini_Calradia_1084.CC
 {
-    // Token: 0x02000006 RID: 6
     internal class GameManager_AD : SandBoxGameManager
     {
-        // Token: 0x06000010 RID: 16 RVA: 0x000033F3 File Offset: 0x000015F3
+        private bool _loadingSavedGame;
+        private LoadResult _loadedGameResult;
+
         public GameManager_AD()
         {
             this._loadingSavedGame = false;
         }
 
-        // Token: 0x06000011 RID: 17 RVA: 0x00003404 File Offset: 0x00001604
         public GameManager_AD(LoadResult loadedGameResult)
         {
             this._loadingSavedGame = true;
             this._loadedGameResult = loadedGameResult;
         }
 
-        // Token: 0x06000012 RID: 18 RVA: 0x0000341C File Offset: 0x0000161C
         public override void OnLoadFinished()
         {
-            bool flag = !this._loadingSavedGame;
-            if (flag)
+            if (!this._loadingSavedGame)
             {
-                bool flag2 = !Game.Current.IsDevelopmentMode;
-                if (flag2)
+                if (!Game.IsDevelopmentMode)
                 {
-                    VideoPlaybackState videoPlaybackState = Game.Current.GameStateManager.CreateState<VideoPlaybackState>();
-                    string str = ModuleHelper.GetModuleFullPath("SandBox") + "Videos/CampaignIntro/";
-                    string subtitleFileBasePath = str + "campaign_intro";
-                    string videoPath = str + "campaign_intro.ivf";
-                    string audioPath = str + "campaign_intro.ogg";
+                    var videoPlaybackState = Game.GameStateManager.CreateState<VideoPlaybackState>();
+                    string path = ModuleHelper.GetModuleFullPath("SandBox") + "Videos/CampaignIntro/";
+                    string subtitleFileBasePath = path + "campaign_intro";
+                    string videoPath = path + "campaign_intro.ivf";
+                    string audioPath = path + "campaign_intro.ogg";
                     videoPlaybackState.SetStartingParameters(videoPath, audioPath, subtitleFileBasePath, 30f, true);
                     videoPlaybackState.SetOnVideoFinisedDelegate(new Action(this.LaunchSandboxCharacterCreation));
-                    Game.Current.GameStateManager.CleanAndPushState(videoPlaybackState, 0);
+                    Game.GameStateManager.CleanAndPushState(videoPlaybackState, 0);
                 }
                 else
                 {
@@ -54,51 +51,44 @@ namespace Anno_Domini_Calradia_1084.CC
             }
             else
             {
-                Game.Current.GameStateManager.OnSavedGameLoadFinished();
-                Game.Current.GameStateManager.CleanAndPushState(Game.Current.GameStateManager.CreateState<MapState>(), 0);
-                MapState mapState = Game.Current.GameStateManager.ActiveState as MapState;
-                string text = (mapState != null) ? mapState.GameMenuId : null;
-                bool flag3 = !string.IsNullOrEmpty(text);
-                if (flag3)
+                Game.GameStateManager.OnSavedGameLoadFinished();
+                Game.GameStateManager.CleanAndPushState(Game.GameStateManager.CreateState<MapState>(), 0);
+
+                var mapState = Game.GameStateManager.ActiveState as MapState;
+                string menuId = mapState?.GameMenuId;
+
+                if (!string.IsNullOrEmpty(menuId))
                 {
-                    PlayerEncounter playerEncounter = PlayerEncounter.Current;
-                    bool flag4 = playerEncounter != null;
-                    if (flag4)
-                    {
-                        playerEncounter.OnLoad();
-                    }
-                    Campaign.Current.GameMenuManager.SetNextMenu(text);
+                    var playerEncounter = PlayerEncounter.Current;
+                    playerEncounter?.OnLoad();
+                    Campaign.Current.GameMenuManager.SetNextMenu(menuId);
                 }
+
                 PartyBase.MainParty.SetVisualAsDirty();
                 Campaign.Current.CampaignInformationManager.OnGameLoaded();
-                foreach (Settlement settlement in Settlement.All)
+                foreach (var settlement in Settlement.All)
                 {
                     settlement.Party.SetLevelMaskIsDirty();
                 }
+
                 CampaignEventDispatcher.Instance.OnGameLoadFinished();
-                bool flag5 = mapState != null;
-                if (flag5)
+
+                if (mapState != null)
                 {
                     mapState.OnLoadingFinished();
                 }
             }
+
             base.IsLoaded = true;
         }
 
-        // Token: 0x06000013 RID: 19 RVA: 0x00003614 File Offset: 0x00001814
         private void LaunchSandboxCharacterCreation()
         {
-            CharacterCreationState gameState = Game.Current.GameStateManager.CreateState<CharacterCreationState>(new object[]
+            var gameState = Game.GameStateManager.CreateState<CharacterCreationState>(new object[]
             {
                 new CharacterCreation_AD()
             });
-            Game.Current.GameStateManager.CleanAndPushState(gameState, 0);
+            Game.GameStateManager.CleanAndPushState(gameState, 0);
         }
-
-        // Token: 0x04000001 RID: 1
-        private bool _loadingSavedGame;
-
-        // Token: 0x04000002 RID: 2
-        private LoadResult _loadedGameResult;
     }
 }

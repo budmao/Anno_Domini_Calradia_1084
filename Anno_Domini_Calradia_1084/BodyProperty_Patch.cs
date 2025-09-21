@@ -29,6 +29,7 @@ namespace Anno_Domini_Calradia_1084.Patches
                 dic.Add(cultures.First((CultureObject x) => x.StringId == "battania"), "<BodyProperties version='4' age='25.84' weight='0.5000' build='0.5000'  key='00000006C000200858766434475CDCBA834E84625590967A7441DA4983AB5646007776030754B76300000000000000000000000000000000000000003CFC3002'/>");
                 dic.Add(cultures.First((CultureObject x) => x.StringId == "svadia"), "<BodyProperties version='4' age='25.84' weight='0.5000' build='0.5000'  key='0005B80D8000000F7C7664876753888A574A866254C69643A45D951A48A7A72700777603073C7D4300000000000000000000000000000000000000003AF41082'/>");
                 dic.Add(cultures.First((CultureObject x) => x.StringId == "nord"), "<BodyProperties version='4' age='25.84' weight='0.5000' build='0.5000'  key='00000800800000045C472B462BBE28B7E9E68689B9C76DD674414A4939677C23007776030767697A00000000000000000000000000000000000000003CFC7002'/>");
+                dic.Add(cultures.First((CultureObject x) => x.StringId == "balion"), "<BodyProperties version='4' age='25.84' weight='0.5000' build='0.5000'  key='0002B808C0000008037664876753888A97658665B9C62DACA46D2B7748ACA797057776570775389800000000000000000000000000000000000000003AF43142'/>");
                 BodyProperties properties;
                 bool flag = BodyProperties.FromString(dic[selectedCulture.Culture], out properties);
                 if (flag)
