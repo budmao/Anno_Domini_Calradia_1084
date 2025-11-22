@@ -9,14 +9,11 @@ using TaleWorlds.Library;
 
 namespace Anno_Domini_Calradia_1084.Patches
 {
-    // Token: 0x02000003 RID: 3
     internal class BodyProperty_Patch
     {
-        // Token: 0x02000008 RID: 8
         [HarmonyPatch(typeof(CharacterCreationCultureStageVM), "InitializePlayersFaceKeyAccordingToCultureSelection")]
         public class ADCCultureFaceKeyPatch
         {
-            // Token: 0x0600001A RID: 26 RVA: 0x000036B8 File Offset: 0x000018B8
             private static void Postfix(CharacterCreationCultureVM selectedCulture)
             {
                 Dictionary<CultureObject, string> dic = new Dictionary<CultureObject, string>(15);

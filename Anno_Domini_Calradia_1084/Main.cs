@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.IO;
 using HarmonyLib;
 using Anno_Domini_Calradia_1084.CC;
 using TaleWorlds.Localization;
@@ -11,32 +12,62 @@ namespace Anno_Domini_Calradia_1084
 {
     public class Main : MBSubModuleBase
     {
+        private static readonly string LogPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Mount and Blade II Bannerlord",
+            "Configs",
+            "Anno_Domini_Calradia_1084_Debug.log"
+        );
+
         protected override void OnSubModuleLoad()
         {
-            new Harmony("AnnoDomini1084").PatchAll();
-
-            var currentModule = TaleWorlds.MountAndBlade.Module.CurrentModule;
-            List<InitialStateOption> initialStateOptions = (List<InitialStateOption>)currentModule.GetType()
-                .GetField("_initialStateOptions", BindingFlags.Instance | BindingFlags.NonPublic)
-                .GetValue(currentModule);
-
-            InitialStateOption story = initialStateOptions.FirstOrDefault(x => x.Id == "StoryModeNewGame");
-            InitialStateOption sb = initialStateOptions.FirstOrDefault(x => x.Id == "SandBoxNewGame");
-
-            if (story != null)
+            try
             {
-                initialStateOptions.Remove(story);
+                new Harmony("AnnoDomini1084").PatchAll();
+
+                var currentModule = TaleWorlds.MountAndBlade.Module.CurrentModule;
+                List<InitialStateOption> initialStateOptions = (List<InitialStateOption>)currentModule.GetType()
+                    .GetField("_initialStateOptions", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetValue(currentModule);
+
+                InitialStateOption story = initialStateOptions.FirstOrDefault(x => x.Id == "StoryModeNewGame");
+                InitialStateOption sb = initialStateOptions.FirstOrDefault(x => x.Id == "SandBoxNewGame");
+
+                if (story != null)
+                {
+                    initialStateOptions.Remove(story);
+                }
+
+                if (sb != null)
+                {
+                    initialStateOptions.Remove(sb);
+                }
+
+                currentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
+                {
+                    MBGameManager.StartNewGame(new GameManager_AD());
+                }, () => new ValueTuple<bool, TextObject>(currentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
+
+                Log("Successfully loaded Anno Domini 1084 main module and replaced initial state options.");
             }
-
-            if (sb != null)
+            catch (Exception ex)
             {
-                initialStateOptions.Remove(sb);
+                Log($"Error loading Anno Domini 1084 main module: {ex}");
             }
+        }
 
-            currentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
+        private static void Log(string message)
+        {
+            try
             {
-                MBGameManager.StartNewGame(new GameManager_AD());
-            }, () => new ValueTuple<bool, TextObject>(currentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
+                Directory.CreateDirectory(Path.GetDirectoryName(LogPath));
+                string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                File.AppendAllText(LogPath, $"[{timestamp}] {message}{Environment.NewLine}");
+            }
+            catch
+            {
+                // Prevent logging errors from interrupting gameplay
+            }
         }
     }
 }
