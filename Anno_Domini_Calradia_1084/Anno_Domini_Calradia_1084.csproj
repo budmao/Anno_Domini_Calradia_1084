@@ -273,13 +273,12 @@
     <Compile Include="FactionHelper_Patch.cs" />
     <Compile Include="ItemCategory_Patch.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="NativeMeatCategory_Patch.cs" />
     <Compile Include="PartyTooltip_Patch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />
-    <Compile Include="ReplaceSlaughteredMeat_Patch.cs" />
     <Compile Include="TaleWorlds\Library\MBRandom.cs" />
-    <Compile Include="WorkshopIcon_Patch.cs" />
+    <Compile Include="UpgradeModel.cs" />
+    <Compile Include="WageModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
