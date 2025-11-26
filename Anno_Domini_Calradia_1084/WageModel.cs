@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Core;
@@ -15,6 +16,9 @@ namespace Anno_Domini_Calradia_1084
         private const float EliteWageMultiplier = 1.5f;       // 50% more expensive
         private const float NobleWageMultiplier = 1.5f;       // 50% more expensive
         private const float MercenaryWageMultiplier = 1.75f;  // 75% more expensive (replaces vanilla 1.5x)
+
+        // Cache for lowercase strings to improve performance
+        private static readonly Dictionary<string, string> _lowerCaseCache = new Dictionary<string, string>();
 
         public override int GetCharacterWage(CharacterObject character)
         {
@@ -35,8 +39,7 @@ namespace Anno_Domini_Calradia_1084
             int baseWage = num;
 
             // Get character ID in lowercase for case-insensitive matching
-            // OPTIMIZED: Use cached lowercase conversion
-            string characterId = StringCache.GetLowerCase(character.StringId);
+            string characterId = GetLowerCase(character.StringId);
 
             // Apply multiplier based on keywords
             // Priority order: noble > elite > irregular > regular > ranged > crossbow
@@ -78,6 +81,19 @@ namespace Anno_Domini_Calradia_1084
             }
 
             return wage;
+        }
+
+        private static string GetLowerCase(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            if (!_lowerCaseCache.TryGetValue(input, out string result))
+            {
+                result = input.ToLowerInvariant();
+                _lowerCaseCache[input] = result;
+            }
+            return result;
         }
     }
 }

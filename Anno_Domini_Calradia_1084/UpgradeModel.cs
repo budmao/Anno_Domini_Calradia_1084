@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
@@ -26,6 +27,9 @@ namespace Anno_Domini_Calradia_1084
         private const float CrossbowUpgradeXpMultiplier = 1.0f;      // Base XP requirement (easier than ranged)
         private const float EliteUpgradeXpMultiplier = 1.5f;         // 50% more XP required
         private const float NobleUpgradeXpMultiplier = 1.5f;         // 50% more XP required
+
+        // Cache for lowercase strings to improve performance
+        private static readonly Dictionary<string, string> _lowerCaseCache = new Dictionary<string, string>();
 
         public override int GetGoldCostForUpgrade(PartyBase party, CharacterObject characterObject, CharacterObject upgradeTarget)
         {
@@ -64,8 +68,8 @@ namespace Anno_Domini_Calradia_1084
         /// </summary>
         private float GetKeywordMultiplier(CharacterObject upgradeTarget)
         {
-            // OPTIMIZED: Use cached lowercase conversion
-            string targetId = StringCache.GetLowerCase(upgradeTarget.StringId);
+            // Use cached lowercase conversion
+            string targetId = GetLowerCase(upgradeTarget.StringId);
 
             // Check in priority order: noble > elite > irregular > regular > ranged > crossbow
             // IMPORTANT: Check "irregular" before "regular" to avoid substring matching
@@ -103,8 +107,8 @@ namespace Anno_Domini_Calradia_1084
         /// </summary>
         private float GetKeywordXpMultiplier(CharacterObject upgradeTarget)
         {
-            // OPTIMIZED: Use cached lowercase conversion
-            string targetId = StringCache.GetLowerCase(upgradeTarget.StringId);
+            // Use cached lowercase conversion
+            string targetId = GetLowerCase(upgradeTarget.StringId);
 
             // Check in priority order: noble > elite > irregular > regular > ranged > crossbow
             // IMPORTANT: Check "irregular" before "regular" to avoid substring matching
@@ -135,6 +139,19 @@ namespace Anno_Domini_Calradia_1084
 
             // Default: no multiplier for troops without keywords
             return 1.0f;
+        }
+
+        private static string GetLowerCase(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            if (!_lowerCaseCache.TryGetValue(input, out string result))
+            {
+                result = input.ToLowerInvariant();
+                _lowerCaseCache[input] = result;
+            }
+            return result;
         }
     }
 }

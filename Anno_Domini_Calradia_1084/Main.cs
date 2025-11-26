@@ -5,6 +5,8 @@ using System.Reflection;
 using System.IO;
 using HarmonyLib;
 using Anno_Domini_Calradia_1084.CC;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 
@@ -53,6 +55,27 @@ namespace Anno_Domini_Calradia_1084
             catch (Exception ex)
             {
                 Log($"Error loading Anno Domini 1084 main module: {ex}");
+            }
+        }
+
+        protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
+        {
+            if (gameStarterObject is CampaignGameStarter campaignStarter)
+            {
+                try
+                {
+                    // Register the custom wage model
+                    campaignStarter.AddModel(new WageModel());
+                    Log("Successfully registered Anno Domini WageModel.");
+
+                    // Register the custom upgrade model
+                    campaignStarter.AddModel(new UpgradeModel());
+                    Log("Successfully registered Anno Domini UpgradeModel.");
+                }
+                catch (Exception ex)
+                {
+                    Log($"Error registering campaign models: {ex}");
+                }
             }
         }
 
