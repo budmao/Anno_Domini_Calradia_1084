@@ -271,7 +271,6 @@
     <Compile Include="CustomStartingPositions_Patch.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="FactionHelper_Patch.cs" />
-    <Compile Include="ItemCategory_Patch.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="PartyTooltip_Patch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
