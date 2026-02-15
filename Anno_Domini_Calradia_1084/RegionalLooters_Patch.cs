@@ -2,6 +2,7 @@
 using System;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
+using TaleWorlds.CampaignSystem.Map;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
@@ -10,7 +11,7 @@ using TaleWorlds.ObjectSystem;
 namespace Anno_Domini_Calradia_1084
 {
     // Patch to capture the settlement when it's selected for looter spawning
-    [HarmonyPatch(typeof(BanditsCampaignBehavior), "SelectARandomSettlementForLooterParty")]
+    [HarmonyPatch(typeof(BanditSpawnCampaignBehavior), "SelectARandomSettlementForLooterParty")]
     public class RegionalLooters_Patch
     {
         static void Postfix(ref Settlement __result)
@@ -24,7 +25,7 @@ namespace Anno_Domini_Calradia_1084
     }
 
     // Patch to replace the party template based on settlement culture
-    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(TaleWorlds.Library.Vec2), typeof(float), typeof(float), typeof(int) })]
+    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(CampaignVec2), typeof(float), typeof(float) })]
     public class RegionalLooters_InitPatch
     {
         static void Prefix(ref PartyTemplateObject pt, MobileParty __instance)
@@ -87,7 +88,7 @@ namespace Anno_Domini_Calradia_1084
     }
 
     // Patch to rename looter parties based on their culture
-    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(TaleWorlds.Library.Vec2), typeof(float), typeof(float), typeof(int) })]
+    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(CampaignVec2), typeof(float), typeof(float) })]
     public class RegionalLooters_NamePatch
     {
         static void Postfix(MobileParty __instance, PartyTemplateObject pt)
@@ -105,7 +106,7 @@ namespace Anno_Domini_Calradia_1084
 
                     if (!string.IsNullOrEmpty(customName))
                     {
-                        __instance.SetCustomName(new TaleWorlds.Localization.TextObject(customName));
+                        __instance.Party.SetCustomName(new TaleWorlds.Localization.TextObject(customName));
                     }
                 }
             }

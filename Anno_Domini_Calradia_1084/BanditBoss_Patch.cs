@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Map;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -14,8 +15,8 @@ namespace Anno_Domini_Calradia_1084
         public static bool IsBossParty { get; set; }
     }
 
-    // Patch to add 5% chance for elite templates with boss units for proper bandit factions
-    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(TaleWorlds.Library.Vec2), typeof(float), typeof(float), typeof(int) })]
+    // Patch to add 10% chance for elite templates with boss units for proper bandit factions
+    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(CampaignVec2), typeof(float), typeof(float) })]
     public class BanditBoss_Patch
     {
         static void Prefix(ref PartyTemplateObject pt, MobileParty __instance)
@@ -67,7 +68,7 @@ namespace Anno_Domini_Calradia_1084
     }
 
     // Patch to rename boss bandit parties
-    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(TaleWorlds.Library.Vec2), typeof(float), typeof(float), typeof(int) })]
+    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(CampaignVec2), typeof(float), typeof(float) })]
     public class BanditBoss_NamePatch
     {
         static void Postfix(MobileParty __instance, PartyTemplateObject pt)
@@ -83,7 +84,7 @@ namespace Anno_Domini_Calradia_1084
 
                     if (!string.IsNullOrEmpty(customName))
                     {
-                        __instance.SetCustomName(new TextObject(customName));
+                        __instance.Party.SetCustomName(new TextObject(customName));
                     }
                 }
 

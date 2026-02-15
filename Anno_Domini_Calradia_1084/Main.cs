@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.IO;
 using HarmonyLib;
-using Anno_Domini_Calradia_1084.CC;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -26,31 +25,7 @@ namespace Anno_Domini_Calradia_1084
             try
             {
                 new Harmony("AnnoDomini1084").PatchAll();
-
-                var currentModule = TaleWorlds.MountAndBlade.Module.CurrentModule;
-                List<InitialStateOption> initialStateOptions = (List<InitialStateOption>)currentModule.GetType()
-                    .GetField("_initialStateOptions", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .GetValue(currentModule);
-
-                InitialStateOption story = initialStateOptions.FirstOrDefault(x => x.Id == "StoryModeNewGame");
-                InitialStateOption sb = initialStateOptions.FirstOrDefault(x => x.Id == "SandBoxNewGame");
-
-                if (story != null)
-                {
-                    initialStateOptions.Remove(story);
-                }
-
-                if (sb != null)
-                {
-                    initialStateOptions.Remove(sb);
-                }
-
-                currentModule.AddInitialStateOption(new InitialStateOption("ADC", new TextObject("{=!}Start New Campaign", null), 3, delegate ()
-                {
-                    MBGameManager.StartNewGame(new GameManager_AD());
-                }, () => new ValueTuple<bool, TextObject>(currentModule.IsOnlyCoreContentEnabled, new TextObject("{=V8BXjyYq}Disabled during installation.", null)), null));
-
-                Log("Successfully loaded Anno Domini 1084 main module and replaced initial state options.");
+                Log("Harmony patches applied successfully.");
             }
             catch (Exception ex)
             {
@@ -58,24 +33,69 @@ namespace Anno_Domini_Calradia_1084
             }
         }
 
-        protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
+        protected override void OnBeforeInitialModuleScreenSetAsRootScreen()
         {
-            if (gameStarterObject is CampaignGameStarter campaignStarter)
+            try
             {
-                try
-                {
-                    // Register the custom wage model
-                    campaignStarter.AddModel(new WageModel());
-                    Log("Successfully registered Anno Domini WageModel.");
+                var currentModule = TaleWorlds.MountAndBlade.Module.CurrentModule;
+                List<InitialStateOption> initialStateOptions = (List<InitialStateOption>)currentModule.GetType()
+                    .GetField("_initialStateOptions", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .GetValue(currentModule);
 
-                    // Register the custom upgrade model
-                    campaignStarter.AddModel(new UpgradeModel());
-                    Log("Successfully registered Anno Domini UpgradeModel.");
-                }
-                catch (Exception ex)
+                // Remove story mode option
+                InitialStateOption story = initialStateOptions.FirstOrDefault(x => x.Id == "StoryModeNewGame");
+                if (story != null)
                 {
-                    Log($"Error registering campaign models: {ex}");
+                    initialStateOptions.Remove(story);
+                    Log("Removed StoryModeNewGame option.");
                 }
+
+                // Replace sandbox option with renamed version
+                InitialStateOption sb = initialStateOptions.FirstOrDefault(x => x.Id == "SandBoxNewGame");
+                if (sb != null)
+                {
+                    // Extract the action and condition from the existing sandbox option via reflection
+                    var actionField = typeof(InitialStateOption).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                        .FirstOrDefault(f => f.FieldType == typeof(Action));
+                    var conditionField = typeof(InitialStateOption).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
+                        .FirstOrDefault(f => f.FieldType == typeof(Func<ValueTuple<bool, TextObject>>));
+
+                    Action sbAction = actionField != null ? (Action)actionField.GetValue(sb) : null;
+                    Func<ValueTuple<bool, TextObject>> sbCondition = conditionField != null
+                        ? (Func<ValueTuple<bool, TextObject>>)conditionField.GetValue(sb)
+                        : null;
+
+                    // Remove the original
+                    initialStateOptions.Remove(sb);
+
+                    if (sbAction != null)
+                    {
+                        // Add replacement with same action but new name
+                        currentModule.AddInitialStateOption(new InitialStateOption(
+                            "ADC",
+                            new TextObject("{=!}Start New Campaign", null),
+                            3,
+                            sbAction,
+                            sbCondition ?? (() => new ValueTuple<bool, TextObject>(
+                                currentModule.IsOnlyCoreContentEnabled,
+                                new TextObject("{=V8BXjyYq}Disabled during installation.", null))),
+                            null
+                        ));
+                        Log("Replaced SandBoxNewGame with Start New Campaign.");
+                    }
+                    else
+                    {
+                        Log("WARNING: Could not extract action from SandBoxNewGame option.");
+                    }
+                }
+                else
+                {
+                    Log("WARNING: SandBoxNewGame option not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"Error replacing initial state options: {ex}");
             }
         }
 
