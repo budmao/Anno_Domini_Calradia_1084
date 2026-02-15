@@ -116,9 +116,6 @@
     <Reference Include="TaleWorlds.Diamond.AccessProvider.Test">
       <HintPath>E:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Diamond.AccessProvider.Test.dll</HintPath>
     </Reference>
-    <Reference Include="TaleWorlds.Diamond.ChatSystem.Library">
-      <HintPath>E:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Diamond.ChatSystem.Library.dll</HintPath>
-    </Reference>
     <Reference Include="TaleWorlds.DotNet">
       <HintPath>E:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll</HintPath>
     </Reference>
@@ -262,15 +259,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplySkillAndAttributeEffects_Patch.cs" />
     <Compile Include="BanditBoss_Patch.cs" />
-    <Compile Include="BodyProperty_Patch.cs" />
     <Compile Include="CachePossibleEliteRewardItems_Patch.cs" />
-    <Compile Include="CharacterCreationContent.cs" />
     <Compile Include="CoronationScene_Patch.cs" />
-    <Compile Include="CustomStartingPositions_Patch.cs" />
-    <Compile Include="GameManager.cs" />
     <Compile Include="FactionHelper_Patch.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />

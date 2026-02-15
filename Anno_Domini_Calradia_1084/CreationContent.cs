@@ -653,8 +653,7 @@ namespace Anno_Domini_Calradia_1084.CC
 
         protected void YouthThugOnConsequence(CharacterCreation characterCreation)
         {
-            base.SelectedTitleType = 7;
-            this.RefreshPlayerAppearance(characterCreation);
+            base.SelectedTitleType = 7;            this.RefreshPlayerAppearance(characterCreation);
             characterCreation.ChangeCharsAnimation(new List<string>
     {
         "act_childhood_sharp"
