@@ -1,74 +1,66 @@
 ﻿using HarmonyLib;
 using System;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Map;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
+using TaleWorlds.Localization;
+using TaleWorlds.CampaignSystem.Party.PartyComponents;
 
 namespace Anno_Domini_Calradia_1084
 {
-    // Patch to capture the settlement when it's selected for looter spawning
-    [HarmonyPatch(typeof(BanditSpawnCampaignBehavior), "SelectARandomSettlementForLooterParty")]
+    // Prefix: swap the party template based on settlement culture
+    [HarmonyPatch(typeof(BanditPartyComponent), "CreateLooterParty")]
     public class RegionalLooters_Patch
     {
-        static void Postfix(ref Settlement __result)
+        static void Prefix(ref PartyTemplateObject pt, Settlement relatedSettlement)
         {
-            // Store the selected settlement so we can use it when initializing the party
-            if (__result != null)
+            if (relatedSettlement == null || relatedSettlement.Culture == null || pt == null)
+                return;
+
+            // Only replace vanilla looter parties — skip pirates, naval bandits, etc.
+            if (pt.StringId != "looters_template")
             {
-                RegionalLootersHelper.LastSelectedSettlement = __result;
+                Main.DebugLog($"[Looters] Skipping non-looter template '{pt.StringId}' near {relatedSettlement.Name}");
+                return;
             }
-        }
-    }
 
-    // Patch to replace the party template based on settlement culture
-    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(CampaignVec2), typeof(float), typeof(float) })]
-    public class RegionalLooters_InitPatch
-    {
-        static void Prefix(ref PartyTemplateObject pt, MobileParty __instance)
-        {
-            // Only modify looter parties that have a stored settlement
-            if (__instance != null &&
-                __instance.IsBandit &&
-                RegionalLootersHelper.LastSelectedSettlement != null)
+            string cultureId = relatedSettlement.Culture.StringId;
+            string originalTemplate = pt.StringId;
+
+            // Try to get regional template
+            PartyTemplateObject cultureTemplate = GetLooterTemplateForCulture(cultureId);
+            if (cultureTemplate != null)
             {
-                Settlement settlement = RegionalLootersHelper.LastSelectedSettlement;
+                pt = cultureTemplate;
 
-                // Get culture-specific template if settlement has a culture
-                if (settlement.Culture != null)
+                // 10% chance to upgrade to elite template
+                if (MBRandom.RandomFloat < 0.1f)
                 {
-                    PartyTemplateObject cultureTemplate = GetLooterTemplateForCulture(settlement.Culture);
-                    if (cultureTemplate != null)
+                    PartyTemplateObject eliteTemplate = GetEliteLooterTemplateForCulture(cultureId);
+                    if (eliteTemplate != null)
                     {
-                        pt = cultureTemplate;
-
-                        // 10% chance to upgrade to elite template with boss unit
-                        if (MBRandom.RandomFloat < 0.1f)
-                        {
-                            PartyTemplateObject eliteTemplate = GetEliteLooterTemplateForCulture(settlement.Culture);
-                            if (eliteTemplate != null)
-                            {
-                                pt = eliteTemplate;
-                            }
-                        }
+                        pt = eliteTemplate;
+                        Main.DebugLog($"[Looters] ELITE SPAWN near {relatedSettlement.Name}: '{originalTemplate}' -> '{pt.StringId}'");
+                        return;
                     }
                 }
 
-                // Clear the stored settlement after use
-                RegionalLootersHelper.LastSelectedSettlement = null;
+                Main.DebugLog($"[Looters] Regional spawn near {relatedSettlement.Name}: '{originalTemplate}' -> '{pt.StringId}'");
+            }
+            else
+            {
+                Main.DebugLog($"[Looters] No regional template for culture '{cultureId}', keeping '{originalTemplate}'");
             }
         }
 
-        private static PartyTemplateObject GetLooterTemplateForCulture(CultureObject culture)
+        private static PartyTemplateObject GetLooterTemplateForCulture(string cultureId)
         {
-            // Build template ID based on culture: "looters_template_empire", "looters_template_vlandia", etc.
-            string templateId = "looters_template_" + culture.StringId;
+            string templateId = "looters_template_" + cultureId;
             PartyTemplateObject template = MBObjectManager.Instance.GetObject<PartyTemplateObject>(templateId);
 
-            // Fallback to default looter template if culture-specific one doesn't exist
             if (template == null)
             {
                 template = MBObjectManager.Instance.GetObject<PartyTemplateObject>("looters_template");
@@ -77,37 +69,33 @@ namespace Anno_Domini_Calradia_1084
             return template;
         }
 
-        private static PartyTemplateObject GetEliteLooterTemplateForCulture(CultureObject culture)
+        private static PartyTemplateObject GetEliteLooterTemplateForCulture(string cultureId)
         {
-            // Build elite template ID: "looters_template_empire_elite", etc.
-            string templateId = "looters_template_" + culture.StringId + "_elite";
-            PartyTemplateObject template = MBObjectManager.Instance.GetObject<PartyTemplateObject>(templateId);
-
-            return template; // Returns null if not found, which is fine
+            string templateId = "looters_template_" + cultureId + "_elite";
+            return MBObjectManager.Instance.GetObject<PartyTemplateObject>(templateId);
         }
     }
 
-    // Patch to rename looter parties based on their culture
-    [HarmonyPatch(typeof(MobileParty), "InitializeMobilePartyAroundPosition", new Type[] { typeof(PartyTemplateObject), typeof(CampaignVec2), typeof(float), typeof(float) })]
+    // Postfix: rename the party based on culture
+    [HarmonyPatch(typeof(BanditPartyComponent), "CreateLooterParty")]
     public class RegionalLooters_NamePatch
     {
-        static void Postfix(MobileParty __instance, PartyTemplateObject pt)
+        static void Postfix(MobileParty __result, PartyTemplateObject pt)
         {
-            // Only rename looter parties with culture-specific templates
-            if (__instance != null && __instance.IsBandit && pt != null)
+            if (__result == null || pt == null)
+                return;
+
+            string templateId = pt.StringId;
+
+            if (templateId.StartsWith("looters_template_"))
             {
-                string templateId = pt.StringId;
+                string cultureId = templateId.Replace("looters_template_", "").Replace("_elite", "");
+                string customName = GetCustomLooterName(cultureId);
 
-                // Check if this is a culture-specific looter template
-                if (templateId.StartsWith("looters_template_"))
+                if (!string.IsNullOrEmpty(customName))
                 {
-                    string cultureId = templateId.Replace("looters_template_", "").Replace("_elite", "");
-                    string customName = GetCustomLooterName(cultureId);
-
-                    if (!string.IsNullOrEmpty(customName))
-                    {
-                        __instance.Party.SetCustomName(new TaleWorlds.Localization.TextObject(customName));
-                    }
+                    __result.Party.SetCustomName(new TextObject(customName));
+                    Main.DebugLog($"[Looters] Renamed party to '{customName}' (template: {templateId})");
                 }
             }
         }
@@ -128,11 +116,5 @@ namespace Anno_Domini_Calradia_1084
                 default: return null;
             }
         }
-    }
-
-    // Helper class to pass data between patches
-    public static class RegionalLootersHelper
-    {
-        public static Settlement LastSelectedSettlement { get; set; }
     }
 }

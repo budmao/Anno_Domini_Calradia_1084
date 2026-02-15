@@ -13,6 +13,12 @@ namespace Anno_Domini_Calradia_1084
 {
     public class Main : MBSubModuleBase
     {
+        // ── Debug toggle ──────────────────────────────────────────────
+        // Set to true to enable verbose logging of patch activity.
+        // Set to false for release builds.
+        public static bool DebugMode = true;
+        // ──────────────────────────────────────────────────────────────
+
         private static readonly string LogPath = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "Mount and Blade II Bannerlord",
@@ -33,7 +39,7 @@ namespace Anno_Domini_Calradia_1084
             }
         }
 
-        protected override void OnBeforeInitialModuleScreenSetAsRootScreen()
+        protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
             try
             {
@@ -47,14 +53,12 @@ namespace Anno_Domini_Calradia_1084
                 if (story != null)
                 {
                     initialStateOptions.Remove(story);
-                    Log("Removed StoryModeNewGame option.");
                 }
 
                 // Replace sandbox option with renamed version
                 InitialStateOption sb = initialStateOptions.FirstOrDefault(x => x.Id == "SandBoxNewGame");
                 if (sb != null)
                 {
-                    // Extract the action and condition from the existing sandbox option via reflection
                     var actionField = typeof(InitialStateOption).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
                         .FirstOrDefault(f => f.FieldType == typeof(Action));
                     var conditionField = typeof(InitialStateOption).GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
@@ -65,12 +69,10 @@ namespace Anno_Domini_Calradia_1084
                         ? (Func<ValueTuple<bool, TextObject>>)conditionField.GetValue(sb)
                         : null;
 
-                    // Remove the original
                     initialStateOptions.Remove(sb);
 
                     if (sbAction != null)
                     {
-                        // Add replacement with same action but new name
                         currentModule.AddInitialStateOption(new InitialStateOption(
                             "ADC",
                             new TextObject("{=!}Start New Campaign", null),
@@ -81,17 +83,10 @@ namespace Anno_Domini_Calradia_1084
                                 new TextObject("{=V8BXjyYq}Disabled during installation.", null))),
                             null
                         ));
-                        Log("Replaced SandBoxNewGame with Start New Campaign.");
-                    }
-                    else
-                    {
-                        Log("WARNING: Could not extract action from SandBoxNewGame option.");
                     }
                 }
-                else
-                {
-                    Log("WARNING: SandBoxNewGame option not found.");
-                }
+
+                Log("Main menu options replaced successfully.");
             }
             catch (Exception ex)
             {
@@ -99,7 +94,7 @@ namespace Anno_Domini_Calradia_1084
             }
         }
 
-        private static void Log(string message)
+        public static void Log(string message)
         {
             try
             {
@@ -109,7 +104,14 @@ namespace Anno_Domini_Calradia_1084
             }
             catch
             {
-                // Prevent logging errors from interrupting gameplay
+            }
+        }
+
+        public static void DebugLog(string message)
+        {
+            if (DebugMode)
+            {
+                Log("[DEBUG] " + message);
             }
         }
     }
