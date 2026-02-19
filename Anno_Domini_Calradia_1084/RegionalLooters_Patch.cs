@@ -23,7 +23,7 @@ namespace Anno_Domini_Calradia_1084
             // Only replace vanilla looter parties — skip pirates, naval bandits, etc.
             if (pt.StringId != "looters_template")
             {
-                Main.DebugLog($"[Looters] Skipping non-looter template '{pt.StringId}' near {relatedSettlement.Name}");
+                //Main.DebugLog($"[Looters] Skipping non-looter template '{pt.StringId}' near {relatedSettlement.Name}");
                 return;
             }
 
@@ -43,12 +43,12 @@ namespace Anno_Domini_Calradia_1084
                     if (eliteTemplate != null)
                     {
                         pt = eliteTemplate;
-                        Main.DebugLog($"[Looters] ELITE SPAWN near {relatedSettlement.Name}: '{originalTemplate}' -> '{pt.StringId}'");
+                        //Main.DebugLog($"[Looters] ELITE SPAWN near {relatedSettlement.Name}: '{originalTemplate}' -> '{pt.StringId}'");
                         return;
                     }
                 }
 
-                Main.DebugLog($"[Looters] Regional spawn near {relatedSettlement.Name}: '{originalTemplate}' -> '{pt.StringId}'");
+                //Main.DebugLog($"[Looters] Regional spawn near {relatedSettlement.Name}: '{originalTemplate}' -> '{pt.StringId}'");
             }
             else
             {
@@ -95,7 +95,7 @@ namespace Anno_Domini_Calradia_1084
                 if (!string.IsNullOrEmpty(customName))
                 {
                     __result.Party.SetCustomName(new TextObject(customName));
-                    Main.DebugLog($"[Looters] Renamed party to '{customName}' (template: {templateId})");
+                    //Main.DebugLog($"[Looters] Renamed party to '{customName}' (template: {templateId})");
                 }
             }
         }

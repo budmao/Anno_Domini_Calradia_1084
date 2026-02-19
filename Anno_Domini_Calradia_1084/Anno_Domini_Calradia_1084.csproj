@@ -39,6 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Anno_Domini_Calradia_1084\bin\Win64_Shipping_Client\Anno_Domini_Calradia_1084_WageModel.dll</HintPath>
     </Reference>
+    <Reference Include="Bannerlord.UIExtenderEx">
+      <HintPath>E:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Bannerlord.UIExtenderEx\bin\Win64_Shipping_Client\Bannerlord.UIExtenderEx.dll</HintPath>
+    </Reference>
     <Reference Include="NavalDLC">
       <HintPath>E:\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\NavalDLC\bin\Win64_Shipping_Client\NavalDLC.dll</HintPath>
     </Reference>
@@ -274,6 +277,7 @@
     <Compile Include="BanditBoss_Patch.cs" />
     <Compile Include="CachePossibleEliteRewardItems_Patch.cs" />
     <Compile Include="CoronationScene_Patch.cs" />
+    <Compile Include="EncyclopediaUnitPageVMMixin.cs" />
     <Compile Include="FactionHelper_Patch.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOver_Patch.cs" />

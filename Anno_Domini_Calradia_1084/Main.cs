@@ -6,6 +6,7 @@ using System.IO;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 
@@ -30,6 +31,12 @@ namespace Anno_Domini_Calradia_1084
         {
             try
             {
+                // Initialize UIExtender for TroopsDescription
+                var extender = Bannerlord.UIExtenderEx.UIExtender.Create("DAC_SHIELDWALL");
+                extender.Register(typeof(Main).Assembly);
+                extender.Enable();
+                Log("TroopsDescription: UIExtender registered and enabled.");
+
                 new Harmony("AnnoDomini1084").PatchAll();
                 Log("Harmony patches applied successfully.");
             }
@@ -91,6 +98,46 @@ namespace Anno_Domini_Calradia_1084
             catch (Exception ex)
             {
                 Log($"Error replacing initial state options: {ex}");
+            }
+        }
+
+        public override void OnGameLoaded(Game game, object initializerObject)
+        {
+            base.OnGameLoaded(game, initializerObject);
+            if (game.GameType is Campaign)
+            {
+                LoadTroopDescriptions();
+            }
+        }
+
+        public override void OnNewGameCreated(Game game, object initializerObject)
+        {
+            base.OnNewGameCreated(game, initializerObject);
+            if (game.GameType is Campaign)
+            {
+                LoadTroopDescriptions();
+            }
+        }
+
+        private void LoadTroopDescriptions()
+        {
+            try
+            {
+                string modFolder = Path.Combine(BasePath.Name, "Modules", "Anno_Domini_Calradia_1084_Naval", "ModuleData", "custom_values");
+                string xmlPath = Path.Combine(modFolder, "troops_description_mod_strings.xml");
+                if (File.Exists(xmlPath))
+                {
+                    EncyclopediaUnitPageVMMixin.TroopDescriptionStrings.Load(xmlPath);
+                    Log("TroopsDescription: XML loaded successfully.");
+                }
+                else
+                {
+                    Log($"TroopsDescription: XML not found at {xmlPath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"TroopsDescription: Error loading XML - {ex.Message}");
             }
         }
 
