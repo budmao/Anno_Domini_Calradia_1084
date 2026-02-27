@@ -283,6 +283,7 @@
     <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOver_Patch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />
+    <Compile Include="SavedGameVM_Constructor_Patch.cs" />
     <Compile Include="TaleWorlds\Library\MBRandom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
