@@ -8,7 +8,7 @@ using TaleWorlds.Localization;
 namespace Anno_Domini_Calradia_1084.Patches
 {
     [HarmonyPatch(typeof(FactionHelper), "GenerateClanNameforPlayer")]
-    internal class FactionHelper_Patch
+    internal class FactionHelperPatch
     {
         [HarmonyPrefix]
         public static bool Prefix(ref TextObject __result)

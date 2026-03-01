@@ -19,7 +19,7 @@ namespace Anno_Domini_Calradia_1084
 
     // Prefix: 10% chance to swap bandit template to boss variant
     [HarmonyPatch(typeof(BanditPartyComponent), "CreateBanditParty")]
-    public class BanditBoss_Patch
+    public class BanditBossPatch
     {
         static void Prefix(ref PartyTemplateObject pt, bool isBossParty)
         {

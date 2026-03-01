@@ -1,11 +1,4 @@
-﻿/*
-
-    ███████  █████  ██    ██ ███████     ██       ██████   █████  ██████      ███████  ██████ ██████  ███████ ███████ ███    ██ 
-    ██      ██   ██ ██    ██ ██          ██      ██    ██ ██   ██ ██   ██     ██      ██      ██   ██ ██      ██      ████   ██ 
-    ███████ ███████ ██    ██ █████       ██      ██    ██ ███████ ██   ██     ███████ ██      ██████  █████   █████   ██ ██  ██ 
-         ██ ██   ██  ██  ██  ██          ██      ██    ██ ██   ██ ██   ██          ██ ██      ██   ██ ██      ██      ██  ██ ██ 
-    ███████ ██   ██   ████   ███████     ███████  ██████  ██   ██ ██████      ███████  ██████ ██   ██ ███████ ███████ ██   ████ 
-                                                                                                                            
+﻿/*                                                                                                                         
     Fix: hero appears as shadow/silhouette on the save/load screen when mods are active.
 
     Vanilla code in SavedGameVM constructor blanks out MainHeroVisualCode and BannerTextCode
@@ -25,7 +18,7 @@ using TaleWorlds.SaveSystem;
 
 [HarmonyPatch(typeof(SavedGameVM))]
 [HarmonyPatch(MethodType.Constructor, typeof(SaveGameFileInfo), typeof(bool), typeof(Action<SavedGameVM>), typeof(Action<SavedGameVM>), typeof(Action), typeof(Action), typeof(bool), typeof(bool))]
-public static class SavedGameVM_Constructor_Patch
+public static class SavedGameVM_ConstructorPatch
 {
     public static void Postfix(SavedGameVM __instance, SaveGameFileInfo save)
     {
@@ -54,7 +47,7 @@ public static class SavedGameVM_Constructor_Patch
         }
         catch (Exception ex)
         {
-            //Main.DebugLog($"[SavedGameVM_Constructor_Patch] Failed to restore hero visual code: {ex.Message}");
+            Anno_Domini_Calradia_1084.Main.DebugLog($"[SavedGameVM_Constructor_Patch] Failed to restore hero visual code: {ex.Message}");
         }
     }
 }

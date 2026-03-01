@@ -7,7 +7,7 @@ using TaleWorlds.Library;
 namespace Anno_Domini_Calradia_1084.Patches
 {
     [HarmonyPatch(typeof(FightTournamentGame), "GetTournamentPrize")]
-    public class CachePossibleEliteRewardItems_Patch
+    public class CachePossibleEliteRewardItemsPatch
     {
         static void Prefix(FightTournamentGame __instance)
         {

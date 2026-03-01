@@ -274,16 +274,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BanditBoss_Patch.cs" />
-    <Compile Include="CachePossibleEliteRewardItems_Patch.cs" />
-    <Compile Include="CoronationScene_Patch.cs" />
+    <Compile Include="BanditBossPatch.cs" />
+    <Compile Include="CachePossibleEliteRewardItemsPatch.cs" />
+    <Compile Include="CitizenSpawnPatch.cs" />
+    <Compile Include="CoronationScenePatch.cs" />
     <Compile Include="EncyclopediaUnitPageVMMixin.cs" />
-    <Compile Include="FactionHelper_Patch.cs" />
+    <Compile Include="FactionHelperPatch.cs" />
+    <Compile Include="Hero_CanLeadPartyPatch.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOver_Patch.cs" />
+    <Compile Include="MissionSpawnAgentPatch.cs" />
+    <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOverPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />
-    <Compile Include="SavedGameVM_Constructor_Patch.cs" />
+    <Compile Include="SavedGameVM_ConstructorPatch.cs" />
     <Compile Include="TaleWorlds\Library\MBRandom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
