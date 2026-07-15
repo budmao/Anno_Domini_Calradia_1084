@@ -13,41 +13,40 @@ using System;
 using HarmonyLib;
 using SandBox.ViewModelCollection.SaveLoad;
 using TaleWorlds.CampaignSystem.Extensions;
-using TaleWorlds.Library;
 using TaleWorlds.SaveSystem;
 
-[HarmonyPatch(typeof(SavedGameVM))]
-[HarmonyPatch(MethodType.Constructor, typeof(SaveGameFileInfo), typeof(bool), typeof(Action<SavedGameVM>), typeof(Action<SavedGameVM>), typeof(Action), typeof(Action), typeof(bool), typeof(bool))]
-public static class SavedGameVM_ConstructorPatch
+namespace Anno_Domini_Calradia_1084.Patches
 {
-    public static void Postfix(SavedGameVM __instance, SaveGameFileInfo save)
+    [HarmonyPatch(typeof(SavedGameVM))]
+    [HarmonyPatch(MethodType.Constructor, typeof(SaveGameFileInfo), typeof(bool), typeof(Action<SavedGameVM>), typeof(Action<SavedGameVM>), typeof(Action), typeof(Action), typeof(bool), typeof(bool))]
+    public static class SavedGameVM_ConstructorPatch
     {
-        try
+        public static void Postfix(SavedGameVM __instance, SaveGameFileInfo save)
         {
-            // Vanilla clears these when any module discrepancy is detected (added/removed mods),
-            // which makes the hero appear as a featureless shadow on the save/load screen.
-            // The visual code is safe to show regardless of module state, so always restore it.
-            if (string.IsNullOrEmpty(__instance.MainHeroVisualCode))
+            try
             {
-                string visualCode = save.MetaData.GetCharacterVisualCode();
-                if (!string.IsNullOrEmpty(visualCode))
+                if (string.IsNullOrEmpty(__instance.MainHeroVisualCode))
                 {
-                    __instance.MainHeroVisualCode = visualCode;
+                    string visualCode = save.MetaData.GetCharacterVisualCode();
+                    if (!string.IsNullOrEmpty(visualCode))
+                    {
+                        __instance.MainHeroVisualCode = visualCode;
+                    }
                 }
-            }
 
-            if (string.IsNullOrEmpty(__instance.BannerTextCode))
-            {
-                string bannerCode = save.MetaData.GetClanBannerCode();
-                if (!string.IsNullOrEmpty(bannerCode))
+                if (string.IsNullOrEmpty(__instance.BannerTextCode))
                 {
-                    __instance.BannerTextCode = bannerCode;
+                    string bannerCode = save.MetaData.GetClanBannerCode();
+                    if (!string.IsNullOrEmpty(bannerCode))
+                    {
+                        __instance.BannerTextCode = bannerCode;
+                    }
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            Anno_Domini_Calradia_1084.Main.DebugLog($"[SavedGameVM_Constructor_Patch] Failed to restore hero visual code: {ex.Message}");
+            catch (Exception ex)
+            {
+                Main.DebugLog($"[SavedGameVM_Constructor_Patch] Failed to restore hero visual code: {ex.Message}");
+            }
         }
     }
 }
