@@ -15,9 +15,13 @@ namespace Anno_Domini_Calradia_1084
     public static class BanditBossHelper
     {
         public static bool IsBossParty { get; set; }
+
+        // Spawn chance constants
+        public const float LandBossSpawnChance = 0.10f;
+        public const float NavalBossSpawnChance = 0.05f;
     }
 
-    // Prefix: 10% chance to swap bandit template to boss variant
+    // Prefix: chance to swap bandit template to boss variant
     [HarmonyPatch(typeof(BanditPartyComponent), "CreateBanditParty")]
     public class BanditBossPatch
     {
@@ -34,13 +38,16 @@ namespace Anno_Domini_Calradia_1084
 
             string templateId = pt.StringId;
 
-            if (!IsBanditFactionTemplate(templateId))
+            if (!IsBanditFactionTemplate(templateId) && !IsNavalFactionTemplate(templateId))
                 return;
 
-            //Main.DebugLog($"[BanditBoss] Bandit party spawning with template '{templateId}'");
+            float spawnChance = IsNavalFactionTemplate(templateId)
+                ? BanditBossHelper.NavalBossSpawnChance
+                : BanditBossHelper.LandBossSpawnChance;
 
-            // 10% chance to upgrade to boss template
-            if (MBRandom.RandomFloat < 0.1f)
+            //Main.DebugLog($"[BanditBoss] Bandit party spawning with template '{templateId}' (chance: {spawnChance:P0})");
+
+            if (MBRandom.RandomFloat < spawnChance)
             {
                 PartyTemplateObject bossTemplate = GetBossTemplate(templateId);
                 if (bossTemplate != null)
@@ -65,6 +72,14 @@ namespace Anno_Domini_Calradia_1084
                     templateId.Contains("desert_bandits") ||
                     templateId.Contains("steppe_bandits") ||
                     templateId.Contains("sea_raiders"));
+        }
+
+        private static bool IsNavalFactionTemplate(string templateId)
+        {
+            return templateId != null &&
+                   !templateId.Contains("_boss") &&
+                   (templateId.Contains("northern_pirates") ||
+                    templateId.Contains("southern_pirates"));
         }
 
         private static PartyTemplateObject GetBossTemplate(string originalTemplateId)
@@ -104,6 +119,10 @@ namespace Anno_Domini_Calradia_1084
                 return "Ra'is al-Ghuzat";
             if (templateId.Contains("steppe_bandits"))
                 return "Bagadar";
+            if (templateId.Contains("northern_pirates"))
+                return "Skipari";
+            if (templateId.Contains("southern_pirates"))
+                return "Qaid al-Bahriyya";
             if (templateId.Contains("sea_raiders"))
                 return "Skipari";
 

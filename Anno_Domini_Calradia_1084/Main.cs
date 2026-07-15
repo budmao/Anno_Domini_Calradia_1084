@@ -36,9 +36,6 @@ namespace Anno_Domini_Calradia_1084
                 extender.Register(typeof(Main).Assembly);
                 extender.Enable();
                 Log("TroopsDescription: UIExtender registered and enabled.");
-
-                new Harmony("AnnoDomini1084").PatchAll();
-                Log("Harmony patches applied successfully.");
             }
             catch (Exception ex)
             {
@@ -46,27 +43,21 @@ namespace Anno_Domini_Calradia_1084
             }
         }
 
-        private static bool _facePatchesApplied = false;
+        private static bool _patchesApplied = false;
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
-            if (!_facePatchesApplied)
+            if (!_patchesApplied)
             {
                 try
                 {
-                    var harmony = new Harmony("AnnoDomini1084.FaceFix");
-                    harmony.CreateClassProcessor(typeof(Patch_FlushCacheOnMissionStart)).Patch();
-                    harmony.CreateClassProcessor(typeof(Patch_ClearTrackerOnFinalize)).Patch();
-                    harmony.CreateClassProcessor(typeof(Patch_TrackFaceCulture)).Patch();
-                    harmony.CreateClassProcessor(typeof(Patch_PreventCrossCultureReuse)).Patch();
-                    harmony.CreateClassProcessor(typeof(Patch_RacePenaltyForMods)).Patch();
-                    harmony.CreateClassProcessor(typeof(Patch_DisableNativeFaceMeshCache)).Patch();
-                    _facePatchesApplied = true;
-                    Log("Face culture patches applied successfully.");
+                    new Harmony("AnnoDomini1084").PatchAll();
+                    _patchesApplied = true;
+                    Log("All Harmony patches applied successfully.");
                 }
                 catch (Exception ex)
                 {
-                    Log($"Error applying face culture patches: {ex}");
+                    Log($"Error applying Harmony patches: {ex}");
                 }
             }
 
