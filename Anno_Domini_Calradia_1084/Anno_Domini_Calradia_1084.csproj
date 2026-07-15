@@ -355,13 +355,12 @@
     <Compile Include="CachePossibleEliteRewardItemsPatch.cs" />
     <Compile Include="EncyclopediaUnitPageVMMixin.cs" />
     <Compile Include="FactionHelperPatch.cs" />
+    <Compile Include="FaceCultureTracker.cs" />
     <Compile Include="Hero_CanLeadPartyPatch.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="MissionSpawnAgentPatch.cs" />
     <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOverPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />
-    <Compile Include="SavedGameVM_ConstructorPatch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
