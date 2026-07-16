@@ -13,7 +13,7 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084
 {
-    [ViewModelMixin("RefreshValues")]
+    [ViewModelMixin]
     internal class EncyclopediaUnitPageVMMixin : BaseViewModelMixin<EncyclopediaUnitPageVM>
     {
         private readonly EncyclopediaUnitPageVM _pageVM;
