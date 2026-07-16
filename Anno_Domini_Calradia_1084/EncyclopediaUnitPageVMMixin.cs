@@ -75,12 +75,22 @@ namespace Anno_Domini_Calradia_1084
                     if (_lastCharacterId != character.StringId)
                     {
                         _lastCharacterId = character.StringId;
-                        string description = GetDescriptionForCurrentCharacter();
-                        _exampleSpriteHint = new HintViewModel(new TextObject(description), null);
+                        string description = TroopDescriptionStrings.GetDescriptionForTroop(character.StringId);
+                        if (!string.IsNullOrEmpty(description))
+                        {
+                            description = description.Replace(";", "\n");
+                            _exampleSpriteHint = new HintViewModel(new TextObject(description), null);
+                            _exampleSpriteVisible = true;
+                        }
+                        else
+                        {
+                            _exampleSpriteVisible = false;
+                        }
                         ViewModel.OnPropertyChangedWithValue<HintViewModel>(_exampleSpriteHint, "TroopsDescriptionSpriteHint");
+                        ViewModel.OnPropertyChangedWithValue(_exampleSpriteVisible, "ExampleSpriteVisible");
                     }
 
-                    return true;
+                    return _exampleSpriteVisible;
                 }
                 catch (Exception ex)
                 {
