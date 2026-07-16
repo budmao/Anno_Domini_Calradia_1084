@@ -19,6 +19,7 @@ namespace Anno_Domini_Calradia_1084
         // Spawn chance constants
         public const float LandBossSpawnChance = 0.10f;
         public const float NavalBossSpawnChance = 0.05f;
+        public const float EliteLooterSpawnChance = 0.10f;
     }
 
     // Prefix: chance to swap bandit template to boss variant

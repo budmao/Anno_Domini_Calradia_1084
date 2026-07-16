@@ -36,8 +36,8 @@ namespace Anno_Domini_Calradia_1084
             {
                 pt = cultureTemplate;
 
-                // 10% chance to upgrade to elite template
-                if (MBRandom.RandomFloat < 0.1f)
+                // constant in BanditBossHelper.cs, can be adjusted for balance
+                if (MBRandom.RandomFloat < BanditBossHelper.EliteLooterSpawnChance)
                 {
                     PartyTemplateObject eliteTemplate = GetEliteLooterTemplateForCulture(cultureId);
                     if (eliteTemplate != null)

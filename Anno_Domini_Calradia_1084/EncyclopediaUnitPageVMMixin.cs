@@ -187,7 +187,7 @@ namespace Anno_Domini_Calradia_1084
             {
                 if (!_isLoaded)
                 {
-                    string modFolder = Path.Combine(BasePath.Name, "Modules", "DAC_SHIELDWALL", "ModuleData");
+                    string modFolder = Path.Combine(BasePath.Name, "Modules", "Anno_Domini_Calradia_1084", "ModuleData");
                     string xmlPath = Path.Combine(modFolder, "troops_description_mod_strings.xml");
                     Load(xmlPath);
                 }

@@ -32,7 +32,7 @@ namespace Anno_Domini_Calradia_1084
             try
             {
                 // Initialize UIExtender for TroopsDescription
-                var extender = Bannerlord.UIExtenderEx.UIExtender.Create("DAC_SHIELDWALL");
+                var extender = Bannerlord.UIExtenderEx.UIExtender.Create("Anno_Domini_Calradia_1084");
                 extender.Register(typeof(Main).Assembly);
                 extender.Enable();
                 Log("TroopsDescription: UIExtender registered and enabled.");
