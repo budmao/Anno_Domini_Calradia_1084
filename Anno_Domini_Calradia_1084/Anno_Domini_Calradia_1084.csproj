@@ -353,6 +353,7 @@
   <ItemGroup>
     <Compile Include="BanditBossPatch.cs" />
     <Compile Include="CachePossibleEliteRewardItemsPatch.cs" />
+    <Compile Include="EncyclopediaUnitPagePrefabExtension.cs" />
     <Compile Include="EncyclopediaUnitPageVMMixin.cs" />
     <Compile Include="FactionHelperPatch.cs" />
     <Compile Include="FaceCultureTracker.cs" />
@@ -361,6 +362,7 @@
     <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOverPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />
+    <Compile Include="UnitPageScreen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
