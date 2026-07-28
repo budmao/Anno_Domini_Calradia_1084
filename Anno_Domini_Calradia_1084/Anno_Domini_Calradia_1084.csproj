@@ -362,6 +362,7 @@
     <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOverPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLooters_Patch.cs" />
+    <Compile Include="StartingGearPatch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

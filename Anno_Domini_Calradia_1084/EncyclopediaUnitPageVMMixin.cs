@@ -43,17 +43,42 @@ namespace Anno_Domini_Calradia_1084
             }
         }
 
-        private string GetDescriptionForCurrentCharacter()
+        private void RefreshDescriptionIfNeeded()
         {
-            var character = GetCurrentCharacter();
-            if (character == null)
-                return "Empty description";
+            try
+            {
+                if (Campaign.Current == null)
+                    return;
 
-            string description = TroopDescriptionStrings.GetDescriptionForTroop(character.StringId);
-            if (string.IsNullOrEmpty(description))
-                return "Empty description";
+                var character = GetCurrentCharacter();
+                if (character == null)
+                    return;
 
-            return description.Replace(";", "\n");
+                if (_lastCharacterId != character.StringId)
+                {
+                    _lastCharacterId = character.StringId;
+                    string description = TroopDescriptionStrings.GetDescriptionForTroop(character.StringId);
+
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        description = description.Replace(";", "\n");
+                        _exampleSpriteHint = new HintViewModel(new TextObject(description), null);
+                        _exampleSpriteVisible = true;
+                    }
+                    else
+                    {
+                        _exampleSpriteHint = new HintViewModel();
+                        _exampleSpriteVisible = false;
+                    }
+
+                    ViewModel.OnPropertyChangedWithValue<HintViewModel>(_exampleSpriteHint, "TroopsDescriptionSpriteHint");
+                    ViewModel.OnPropertyChangedWithValue(_exampleSpriteVisible, "ExampleSpriteVisible");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print($"TroopsDescription: RefreshDescription error: {ex.Message}");
+            }
         }
 
         [DataSourceProperty]
@@ -61,42 +86,8 @@ namespace Anno_Domini_Calradia_1084
         {
             get
             {
-                // Handle input and update hint lazily when UI queries this property
-                try
-                {
-                    if (Campaign.Current == null)
-                        return false;
-
-                    var character = GetCurrentCharacter();
-                    if (character == null)
-                        return false;
-
-                    // Update hint when character changes
-                    if (_lastCharacterId != character.StringId)
-                    {
-                        _lastCharacterId = character.StringId;
-                        string description = TroopDescriptionStrings.GetDescriptionForTroop(character.StringId);
-                        if (!string.IsNullOrEmpty(description))
-                        {
-                            description = description.Replace(";", "\n");
-                            _exampleSpriteHint = new HintViewModel(new TextObject(description), null);
-                            _exampleSpriteVisible = true;
-                        }
-                        else
-                        {
-                            _exampleSpriteVisible = false;
-                        }
-                        ViewModel.OnPropertyChangedWithValue<HintViewModel>(_exampleSpriteHint, "TroopsDescriptionSpriteHint");
-                        ViewModel.OnPropertyChangedWithValue(_exampleSpriteVisible, "ExampleSpriteVisible");
-                    }
-
-                    return _exampleSpriteVisible;
-                }
-                catch (Exception ex)
-                {
-                    Debug.Print($"TroopsDescription: ExampleSpriteVisible error: {ex.Message}");
-                    return false;
-                }
+                RefreshDescriptionIfNeeded();
+                return _exampleSpriteVisible;
             }
             set
             {
@@ -113,28 +104,7 @@ namespace Anno_Domini_Calradia_1084
         {
             get
             {
-                // Lazy load description when UI reads the hint
-                try
-                {
-                    if (Campaign.Current == null)
-                        return _exampleSpriteHint;
-
-                    var character = GetCurrentCharacter();
-                    if (character == null)
-                        return _exampleSpriteHint;
-
-                    if (_lastCharacterId != character.StringId)
-                    {
-                        _lastCharacterId = character.StringId;
-                        string description = GetDescriptionForCurrentCharacter();
-                        _exampleSpriteHint = new HintViewModel(new TextObject(description), null);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.Print($"TroopsDescription: TroopsDescriptionSpriteHint error: {ex.Message}");
-                }
-
+                RefreshDescriptionIfNeeded();
                 return _exampleSpriteHint;
             }
             set
