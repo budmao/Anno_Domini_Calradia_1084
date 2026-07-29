@@ -5,9 +5,9 @@ using TaleWorlds.CampaignSystem.CharacterCreationContent;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace CharacterCreationRedone.VanillaOptions
+namespace Anno_Domini_Calradia_1084
 {
-    public class CharacterCreationRedoneVanillaChildhoodMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
+    public class CharacterCreationChildhoodMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
     {
         public string GetPlayerChildhoodAgeEquipmentId(CharacterCreationManager characterCreationManager, string parentOccupationType, string cultureId, bool isFemale)
         {

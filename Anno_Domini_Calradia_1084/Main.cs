@@ -8,6 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using NavalDLC.CampaignBehaviors;
 using TaleWorlds.MountAndBlade;
 
 namespace Anno_Domini_Calradia_1084
@@ -112,6 +113,13 @@ namespace Anno_Domini_Calradia_1084
             {
                 Log($"Error replacing initial state options: {ex}");
             }
+        }
+
+        public override void OnGameInitializationFinished(Game game)
+        {
+            if (!(game.GameType is Campaign)) return;
+            Campaign.Current.CampaignBehaviorManager.RemoveBehavior<NavalCharacterCreationCampaignBehavior>();
+            Log("Removed NavalCharacterCreationCampaignBehavior.");
         }
 
         public override void OnGameLoaded(Game game, object initializerObject)

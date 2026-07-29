@@ -5,9 +5,9 @@ using TaleWorlds.CampaignSystem.CharacterCreationContent;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace CharacterCreationRedone.VanillaOptions
+namespace Anno_Domini_Calradia_1084
 {
-    public class CharacterCreationRedoneVanillaParentsMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
+    public class CharacterCreationParentsMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
     {
         /// <summary>
         /// I've split the different steps of the backstory options to make it easier to work with, if you want it to be ina single file : https://github.com/Sh1ny4/CharacterCreationRedone/blob/bc3fd947cef49e8275fa729928d9743b5ea64abe/CharacterCreationRedone/CharacterCreationOptions/CharacterCreationRedoneVanilla.cs
