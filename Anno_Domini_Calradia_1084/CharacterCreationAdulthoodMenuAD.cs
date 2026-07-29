@@ -8,7 +8,7 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084
 {
-    public class CharacterCreationAdulthoodMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
+    public class CharacterCreationAdulthoodMenuAD : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
     {
         public string GetPlayerEquipmentId(CharacterCreationManager characterCreationManager, string occupationType, string cultureId, bool isFemale)
         {
@@ -97,7 +97,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodManhuntOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && (characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "vlandia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "empire" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "aserai" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "battania" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "khuzait");
+            return !CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && (characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "vlandia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "empire" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "aserai" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "battania" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "khuzait");
         }
 
         public void AdulthoodManhuntOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -126,7 +126,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodCaravanLeaderOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && (characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "vlandia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "sturgia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "empire" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "aserai" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "khuzait" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "nord");
+            return CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && (characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "vlandia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "sturgia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "empire" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "aserai" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "khuzait" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "nord");
         }
 
         public void AdulthoodCaravanLeaderOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -155,7 +155,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodSavedVillageOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && (characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "sturgia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "nord");
+            return !CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && (characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "sturgia" || characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "nord");
         }
 
         public void AdulthoodSavedVillageOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -184,7 +184,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodSavedCityOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "battania";
+            return CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation) && characterCreationManager.CharacterCreationContent.SelectedCulture.StringId == "battania";
         }
 
         public void AdulthoodSavedCityOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -213,7 +213,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodWorkshopOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void AdulthoodWorkshopOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -241,7 +241,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodInvestorOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void AdulthoodInvestorOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -270,7 +270,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodHunterOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void AdulthoodHunterOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -296,7 +296,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodSiegeSurvivorOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void AdulthoodSiegeSurvivorOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -325,7 +325,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodEscapadeHighRegisterOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void AdulthoodEscapadeHighRegisterOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -354,7 +354,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool AdulthoodEscapadeLowRegisterOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationAdulthoodMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationAdulthoodMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void AdulthoodEscapadeLowRegisterOptionOnSelect(CharacterCreationManager characterCreationManager)

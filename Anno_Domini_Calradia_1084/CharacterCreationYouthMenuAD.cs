@@ -8,7 +8,7 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084
 {
-    public class CharacterCreationYouthMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
+    public class CharacterCreationYouthMenuAD : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
     {
         public string GetPlayerEquipmentId(CharacterCreationManager characterCreationManager, string occupationType, string cultureId, bool isFemale)
         {

@@ -7,7 +7,7 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084
 {
-    public class CharacterCreationChildhoodMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
+    public class CharacterCreationChildhoodMenuAD : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
     {
         public string GetPlayerChildhoodAgeEquipmentId(CharacterCreationManager characterCreationManager, string parentOccupationType, string cultureId, bool isFemale)
         {

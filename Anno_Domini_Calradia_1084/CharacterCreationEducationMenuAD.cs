@@ -10,7 +10,7 @@ using TaleWorlds.Localization;
 
 namespace Anno_Domini_Calradia_1084
 {
-    public class CharacterCreationEducationMenu : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
+    public class CharacterCreationEducationMenuAD : CharacterCreationCampaignBehavior, ICharacterCreationContentHandler
     {
         public string GetPlayerEducationAgeEquipmentId(CharacterCreationManager characterCreationManager, string parentOccupationType, string cultureId, bool isFemale)
         {
@@ -67,7 +67,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationHerderOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationHerderOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -95,7 +95,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationSmithOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationSmithOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -123,7 +123,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationEngineerOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationEngineerOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -151,7 +151,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationDoctorOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationDoctorOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -179,7 +179,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationHunterOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationHunterOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -207,7 +207,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationMerchantOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return !CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return !CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationMerchantOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -235,7 +235,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationWatcherOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationWatcherOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -263,7 +263,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationGangerOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationGangerOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -291,7 +291,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationDockerOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationDockerOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -319,7 +319,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationMarketerOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationMarketerOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -347,7 +347,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationTutorOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationTutorOptionOnSelect(CharacterCreationManager characterCreationManager)
@@ -375,7 +375,7 @@ namespace Anno_Domini_Calradia_1084
 
         public bool EducationPoorHorserOptionOnCondition(CharacterCreationManager characterCreationManager)
         {
-            return CharacterCreationEducationMenu.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
+            return CharacterCreationEducationMenuAD.CharacterOccupationTypes.IsUrbanOccupation(characterCreationManager.CharacterCreationContent.SelectedParentOccupation);
         }
 
         public void EducationPoorHorserOptionOnSelect(CharacterCreationManager characterCreationManager)
