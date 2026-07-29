@@ -26,10 +26,10 @@ namespace Anno_Domini_Calradia_1084.Patches
         private const bool DebugEnabled = false;
 
         // Chance that any given slot gets a modifier at all (skip some for variety)
-        private const float ChanceToApply = 0.75f;
+        private const float ChanceToApply = 0.80f;
 
-        // Among applied modifiers: 65% inferior, 35% poor
-        private const float InferiorWeight = 0.65f;
+        // Among applied modifiers: 30% inferior, 70% poor
+        private const float InferiorWeight = 0.30f;
 
         [HarmonyPostfix]
         public static void Postfix()
