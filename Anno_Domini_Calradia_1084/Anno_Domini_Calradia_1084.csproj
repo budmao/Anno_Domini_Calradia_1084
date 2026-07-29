@@ -353,6 +353,13 @@
   <ItemGroup>
     <Compile Include="BanditBossPatch.cs" />
     <Compile Include="CachePossibleEliteRewardItemsPatch.cs" />
+    <Compile Include="CharacterCreationRedoneVanilla .cs" />
+    <Compile Include="CharacterCreationRedoneVanillaAdulthoodMenu.cs" />
+    <Compile Include="CharacterCreationRedoneVanillaAgeMenu.cs" />
+    <Compile Include="CharacterCreationRedoneVanillaChildhoodMenu.cs" />
+    <Compile Include="CharacterCreationRedoneVanillaEducationMenu.cs" />
+    <Compile Include="CharacterCreationRedoneVanillaParentsMenu.cs" />
+    <Compile Include="CharacterCreationRedoneVanillaYouthMenu.cs" />
     <Compile Include="EncyclopediaUnitPagePrefabExtension.cs" />
     <Compile Include="EncyclopediaUnitPageVMMixin.cs" />
     <Compile Include="FactionHelperPatch.cs" />
