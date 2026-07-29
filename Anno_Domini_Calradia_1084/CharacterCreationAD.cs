@@ -12,6 +12,8 @@ namespace Anno_Domini_Calradia_1084
         [HarmonyPrefix]
         static bool Prefix(ref CharacterCreationAD __instance, CharacterCreationManager characterCreationManager)
         {
+            Main.Log("CharacterCreation patch fired — using custom menus.");
+
             characterCreationManager.CharacterCreationContent.ChangeReviewPageDescription(new TextObject("{=W6pKpEoT}You prepare to set off for a grand adventure in Calradia! Here is your character. Continue if you are ready, or go back to make changes.", null));
             var ParentsMenu = new CharacterCreationParentsMenuAD();
             var ChildhoodMenu = new CharacterCreationChildhoodMenuAD();
