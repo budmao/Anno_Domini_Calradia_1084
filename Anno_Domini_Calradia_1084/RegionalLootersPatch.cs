@@ -9,11 +9,11 @@ using TaleWorlds.ObjectSystem;
 using TaleWorlds.Localization;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
 
-namespace Anno_Domini_Calradia_1084
+namespace Anno_Domini_Calradia_1084.Patches
 {
     // Prefix: swap the party template based on settlement culture
     [HarmonyPatch(typeof(BanditPartyComponent), "CreateLooterParty")]
-    public class RegionalLooters_Patch
+    public class RegionalLootersPatch
     {
         static void Prefix(ref PartyTemplateObject pt, Settlement relatedSettlement)
         {

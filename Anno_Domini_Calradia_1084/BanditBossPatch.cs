@@ -14,6 +14,9 @@ namespace Anno_Domini_Calradia_1084
     // Helper to track boss status between prefix and postfix
     public static class BanditBossHelper
     {
+        // Set to true to enable verbose logging for bandit boss spawns
+        public const bool DebugMode = false;
+
         public static bool IsBossParty { get; set; }
 
         // Spawn chance constants
@@ -29,6 +32,9 @@ namespace Anno_Domini_Calradia_1084
         static void Prefix(ref PartyTemplateObject pt, bool isBossParty)
         {
             BanditBossHelper.IsBossParty = false;
+
+            //if (BanditBossHelper.DebugMode && pt != null)
+                //Main.DebugLog($"[BanditBoss] CreateBanditParty called with template '{pt.StringId}', isBossParty={isBossParty}");
 
             // Don't modify if the game already marked this as a boss party
             if (isBossParty)
@@ -46,7 +52,6 @@ namespace Anno_Domini_Calradia_1084
                 ? BanditBossHelper.NavalBossSpawnChance
                 : BanditBossHelper.LandBossSpawnChance;
 
-            //Main.DebugLog($"[BanditBoss] Bandit party spawning with template '{templateId}' (chance: {spawnChance:P0})");
 
             if (MBRandom.RandomFloat < spawnChance)
             {
@@ -55,7 +60,8 @@ namespace Anno_Domini_Calradia_1084
                 {
                     pt = bossTemplate;
                     BanditBossHelper.IsBossParty = true;
-                    //Main.DebugLog($"[BanditBoss] BOSS SPAWN! '{templateId}' -> '{bossTemplate.StringId}'");
+                    if (BanditBossHelper.DebugMode)
+                        Main.DebugLog($"[BanditBoss] BOSS SPAWN! '{templateId}' -> '{bossTemplate.StringId}'");
                 }
                 else
                 {
@@ -75,7 +81,7 @@ namespace Anno_Domini_Calradia_1084
                     templateId.Contains("sea_raiders"));
         }
 
-        private static bool IsNavalFactionTemplate(string templateId)
+        internal static bool IsNavalFactionTemplate(string templateId)
         {
             return templateId != null &&
                    !templateId.Contains("_boss") &&
@@ -104,13 +110,14 @@ namespace Anno_Domini_Calradia_1084
             if (!string.IsNullOrEmpty(customName))
             {
                 __result.Party.SetCustomName(new TextObject(customName));
-                //Main.DebugLog($"[BanditBoss] Renamed boss party to '{customName}' (template: {pt.StringId})");
+                if (BanditBossHelper.DebugMode)
+                    Main.DebugLog($"[BanditBoss] Renamed boss party to '{customName}' (template: {pt.StringId})");
             }
 
             BanditBossHelper.IsBossParty = false;
         }
 
-        private static string GetBossBanditName(string templateId)
+        internal static string GetBossBanditName(string templateId)
         {
             if (templateId.Contains("forest_bandits"))
                 return "Knyaz Lesov";
@@ -128,6 +135,60 @@ namespace Anno_Domini_Calradia_1084
                 return "Skipari";
 
             return null;
+        }
+    }
+
+    // Prefix: chance to swap pirate template to boss variant (pirates spawn via CreateLooterParty)
+    [HarmonyPatch(typeof(BanditPartyComponent), "CreateLooterParty")]
+    public class PirateBossPatch
+    {
+        static void Prefix(ref PartyTemplateObject pt)
+        {
+            if (pt == null)
+                return;
+
+            string templateId = pt.StringId;
+
+            if (!BanditBossPatch.IsNavalFactionTemplate(templateId))
+                return;
+
+            if (MBRandom.RandomFloat < BanditBossHelper.NavalBossSpawnChance)
+            {
+                PartyTemplateObject bossTemplate = MBObjectManager.Instance.GetObject<PartyTemplateObject>(templateId + "_boss");
+                if (bossTemplate != null)
+                {
+                    pt = bossTemplate;
+                    BanditBossHelper.IsBossParty = true;
+                    if (BanditBossHelper.DebugMode)
+                        Main.DebugLog($"[BanditBoss] PIRATE BOSS SPAWN! '{templateId}' -> '{bossTemplate.StringId}'");
+                }
+                else
+                {
+                    Main.DebugLog($"[BanditBoss] Pirate boss roll succeeded but template '{templateId}_boss' not found!");
+                }
+            }
+        }
+    }
+
+    // Postfix: rename boss pirate parties
+    [HarmonyPatch(typeof(BanditPartyComponent), "CreateLooterParty")]
+    public class PirateBoss_NamePatch
+    {
+        static void Postfix(MobileParty __result, PartyTemplateObject pt)
+        {
+            if (!BanditBossHelper.IsBossParty || __result == null || pt == null)
+                return;
+
+            string customName = BanditBoss_NamePatch.GetBossBanditName(pt.StringId);
+
+            if (!string.IsNullOrEmpty(customName))
+            {
+                __result.Party.SetCustomName(new TextObject(customName));
+                if (BanditBossHelper.DebugMode)
+                    Main.DebugLog($"[BanditBoss] Renamed pirate boss party to '{customName}' (template: {pt.StringId})");
+            }
+
+            BanditBossHelper.IsBossParty = false;
         }
     }
 }

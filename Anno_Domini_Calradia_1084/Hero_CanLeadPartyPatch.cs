@@ -4,7 +4,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 
 // make that females are selected last for leading parties
 
-namespace Anno_Domini_Calradia_1084
+namespace Anno_Domini_Calradia_1084.Patches
 {
     [HarmonyPatch(typeof(Hero))]
     [HarmonyPatch("CanLeadParty")]

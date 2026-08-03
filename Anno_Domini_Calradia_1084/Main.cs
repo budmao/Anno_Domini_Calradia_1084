@@ -158,6 +158,12 @@ namespace Anno_Domini_Calradia_1084
             }
         }
 
+        public override void OnBeforeMissionBehaviorInitialize(Mission mission)
+        {
+            base.OnBeforeMissionBehaviorInitialize(mission);
+            mission.AddMissionBehavior(new Patches.BanditShieldColorMissionBehavior());
+        }
+
         public static void Log(string message)
         {
             try

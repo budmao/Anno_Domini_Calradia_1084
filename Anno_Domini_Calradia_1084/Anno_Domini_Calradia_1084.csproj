@@ -352,6 +352,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BanditBossPatch.cs" />
+    <Compile Include="BanditClanColorPatch.cs" />
+    <Compile Include="BanditShieldColorMissionBehavior.cs" />
     <Compile Include="CachePossibleEliteRewardItemsPatch.cs" />
     <Compile Include="CharacterCreationAD.cs" />
     <Compile Include="CharacterCreationAdulthoodMenuAD.cs" />
@@ -360,6 +362,7 @@
     <Compile Include="CharacterCreationEducationMenuAD.cs" />
     <Compile Include="CharacterCreationParentsMenuAD.cs" />
     <Compile Include="CharacterCreationYouthMenuAD.cs" />
+    <Compile Include="CitizenSpawnPatch.cs" />
     <Compile Include="EncyclopediaUnitPagePrefabExtension.cs" />
     <Compile Include="EncyclopediaUnitPageVMMixin.cs" />
     <Compile Include="FactionHelperPatch.cs" />
@@ -368,7 +371,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="NavalInitializationCampaignBehavior_OnCharacterCreationIsOverPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegionalLooters_Patch.cs" />
+    <Compile Include="RegionalLootersPatch.cs" />
     <Compile Include="StartingGearPatch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
