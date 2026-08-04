@@ -373,6 +373,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionalLootersPatch.cs" />
     <Compile Include="StartingGearPatch.cs" />
+    <Compile Include="TownsfolkColorPatch.cs" />
+    <Compile Include="VillageBattleLivestockPatch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
