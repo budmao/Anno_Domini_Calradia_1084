@@ -50,72 +50,13 @@ namespace Anno_Domini_Calradia_1084
         public void AddParentsMenu(CharacterCreationManager characterCreationManager)
         {
             List<NarrativeMenuCharacter> list = new List<NarrativeMenuCharacter>();
-            int race = CharacterObject.PlayerCharacter.Race;
-            BodyProperties playerProps = CharacterObject.PlayerCharacter.GetBodyProperties(
-                CharacterObject.PlayerCharacter.Equipment, -1);
-
-            // Generate base parent faces from player's appearance
-            BodyProperties motherProps = playerProps;
-            BodyProperties fatherProps = playerProps;
-            FaceGen.GenerateParentKey(playerProps, race, ref motherProps, ref fatherProps);
-
-            // Get culture-specific AOM template for hair/beard/tattoo
-            string cultureId = characterCreationManager.CharacterCreationContent
-                .SelectedCulture.StringId;
-            MBBodyProperty fatherTemplate = Game.Current.ObjectManager
-                .GetObject<MBBodyProperty>("AOM_veteran_" + cultureId);
-
-            if (fatherTemplate != null)
-            {
-                // Regenerate father with culture-appropriate hair/beard
-                // Using player face as min and generated father as max
-                // with small variation keeps skin tone close to player
-                fatherProps = BodyProperties.GetRandomBodyProperties(
-                    race,
-                    false,                          // male
-                    playerProps,                    // min — player's face
-                    fatherProps,                    // max — generated father
-                    0,                              // no helmet
-                    MBRandom.RandomInt(),
-                    fatherTemplate.HairTags,        // culture-specific hair
-                    fatherTemplate.BeardTags,       // culture-specific beards
-                    "Cleanface,",                   // clean face for father
-                    0.15f                           // small variation from player
-                );
-
-                // Regenerate mother with culture-appropriate hair, no beard
-                // Using villager template if available, otherwise veteran
-                MBBodyProperty motherTemplate = Game.Current.ObjectManager
-                    .GetObject<MBBodyProperty>("AOM_villager_" + cultureId)
-                    ?? fatherTemplate;
-
-                motherProps = BodyProperties.GetRandomBodyProperties(
-                    race,
-                    true,                           // female
-                    playerProps,                    // min — player's face
-                    motherProps,                    // max — generated mother
-                    0,                              // no helmet
-                    MBRandom.RandomInt(),
-                    motherTemplate.HairTags,        // culture-specific hair
-                    "",                             // no beards for mother
-                    "Cleanface,",                   // clean face for mother
-                    0.15f                           // small variation from player
-                );
-            }
-
-            // Set parent ages and body types
-            // Mother: age 33, slim (weight 0.3, build 0.2)
-            // Father: age 33, stockier (weight 0.5, build 0.5)
-            motherProps = new BodyProperties(
-                new DynamicBodyProperties(33f, 0.3f, 0.2f),
-                motherProps.StaticProperties);
-            fatherProps = new BodyProperties(
-                new DynamicBodyProperties(33f, 0.5f, 0.5f),
-                fatherProps.StaticProperties);
-
-            list.Add(new NarrativeMenuCharacter("mother_character", motherProps, race, true));
-            list.Add(new NarrativeMenuCharacter("father_character", fatherProps, race, false));
-
+            BodyProperties bodyProperties2;
+            BodyProperties bodyProperties;
+            FaceGen.GenerateParentKey(bodyProperties = (bodyProperties2 = CharacterObject.PlayerCharacter.GetBodyProperties(CharacterObject.PlayerCharacter.Equipment, -1)), CharacterObject.PlayerCharacter.Race, ref bodyProperties2, ref bodyProperties);
+            bodyProperties2 = new BodyProperties(new DynamicBodyProperties(33f, 0.3f, 0.2f), bodyProperties2.StaticProperties);
+            bodyProperties = new BodyProperties(new DynamicBodyProperties(33f, 0.5f, 0.5f), bodyProperties.StaticProperties);
+            list.Add(new NarrativeMenuCharacter("mother_character", bodyProperties2, CharacterObject.PlayerCharacter.Race, true));
+            list.Add(new NarrativeMenuCharacter("father_character", bodyProperties, CharacterObject.PlayerCharacter.Race, false));
             NarrativeMenu narrativeMenu = new NarrativeMenu("narrative_parent_menu", "start", "narrative_childhood_menu", new TextObject("{=b4lDDcli}Family", null), new TextObject("{=XgFU1pCx}You were born into a family of...", null), list, new NarrativeMenu.GetNarrativeMenuCharacterArgsDelegate(this.GetParentMenuNarrativeMenuCharacterArgs));
 
             narrativeMenu.AddNarrativeMenuOption(new NarrativeMenuOption("aserai_kinsfolk_option", new TextObject("{=Sw8OxnNr}Kinsfolk of an emir", null), new TextObject("{=MFrIHJZM}Your family was from a smaller offshoot of an emir's tribe. Your father's land gave him enough income to afford a horse but he was not quite wealthy enough to buy the armor needed to join the heavier cavalry. He fought as one of the light horsemen for which the desert is famous.", null), new GetNarrativeMenuOptionArgsDelegate(this.GetAseraiKinsfolkNarrativeOptionArgs), new NarrativeMenuOptionOnConditionDelegate(this.AseraiKinsfolkNarrativeOptionOnCondition), new NarrativeMenuOptionOnSelectDelegate(this.AseraiKinsfolkNarrativeOptionOnSelect), null));
@@ -321,17 +262,66 @@ namespace Anno_Domini_Calradia_1084
 
         new public void UpdateParentEquipment(CharacterCreationManager characterCreationManager, MBEquipmentRoster motherEquipment, MBEquipmentRoster fatherEquipment, string motherAnimation, string fatherAnimation)
         {
-            foreach (NarrativeMenuCharacter narrativeMenuCharacter in characterCreationManager.CurrentMenu.Characters)
+            // Regenerate parent faces with culture-specific appearance
+            string cultureId = characterCreationManager.CharacterCreationContent
+                .SelectedCulture?.StringId;
+            MBBodyProperty fatherTemplate = cultureId != null
+                ? Game.Current.ObjectManager.GetObject<MBBodyProperty>("AOM_veteran_" + cultureId)
+                : null;
+
+            if (fatherTemplate != null)
             {
-                if (narrativeMenuCharacter.StringId.Equals("mother_character"))
+                int race = CharacterObject.PlayerCharacter.Race;
+
+                // Father: full AOM template with culture hair/beard
+                BodyProperties fatherProps = BodyProperties.GetRandomBodyProperties(
+                    race, false,
+                    fatherTemplate.BodyPropertyMin,
+                    fatherTemplate.BodyPropertyMax,
+                    0, MBRandom.RandomInt(),
+                    fatherTemplate.HairTags,
+                    fatherTemplate.BeardTags,
+                    "Cleanface,", 0f);
+                fatherProps = new BodyProperties(
+                    new DynamicBodyProperties(33f, 0.5f, 0.5f), fatherProps.StaticProperties);
+
+                // Mother: female AOM template with culture-appropriate hair
+                MBBodyProperty motherTemplate = Game.Current.ObjectManager
+                    .GetObject<MBBodyProperty>("AOM_female_" + cultureId);
+
+                if (motherTemplate != null)
                 {
-                    narrativeMenuCharacter.SetEquipment(motherEquipment);
-                    narrativeMenuCharacter.SetAnimationId(motherAnimation);
+                    BodyProperties motherProps = BodyProperties.GetRandomBodyProperties(
+                        race, true,
+                        motherTemplate.BodyPropertyMin,
+                        motherTemplate.BodyPropertyMax,
+                        0, MBRandom.RandomInt(),
+                        motherTemplate.HairTags,
+                        "",
+                        "Cleanface,", 0f);
+                    motherProps = new BodyProperties(
+                        new DynamicBodyProperties(33f, 0.3f, 0.2f), motherProps.StaticProperties);
+
+                    foreach (NarrativeMenuCharacter character in characterCreationManager.CurrentMenu.Characters)
+                    {
+                        if (character.StringId.Equals("mother_character"))
+                            character.UpdateBodyProperties(motherProps, race, true);
+                    }
                 }
-                if (narrativeMenuCharacter.StringId.Equals("father_character"))
+            }
+
+            // Update equipment and animations
+            foreach (NarrativeMenuCharacter character in characterCreationManager.CurrentMenu.Characters)
+            {
+                if (character.StringId.Equals("mother_character"))
                 {
-                    narrativeMenuCharacter.SetEquipment(fatherEquipment);
-                    narrativeMenuCharacter.SetAnimationId(fatherAnimation);
+                    character.SetEquipment(motherEquipment);
+                    character.SetAnimationId(motherAnimation);
+                }
+                if (character.StringId.Equals("father_character"))
+                {
+                    character.SetEquipment(fatherEquipment);
+                    character.SetAnimationId(fatherAnimation);
                 }
             }
         }
