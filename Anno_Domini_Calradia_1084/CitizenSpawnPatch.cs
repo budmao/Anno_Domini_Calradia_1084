@@ -160,7 +160,7 @@ namespace Anno_Domini_Calradia_1084
 
                     if (menRatio > 0f || minMen > 0)
                     {
-                        int menCount = Math.Max(minMen, (int)(totalPoints * menRatio * spawnRate));
+                        int menCount = Math.Min(totalPoints, Math.Max(minMen, (int)(totalPoints * menRatio * spawnRate)));
                         var del = TownsManDelegate;
                         if (del != null && menCount > 0)
                             currentLocation.AddLocationCharacters(
@@ -169,7 +169,7 @@ namespace Anno_Domini_Calradia_1084
 
                     if (womenRatio > 0f || minWomen > 0)
                     {
-                        int womenCount = Math.Max(minWomen, (int)(totalPoints * womenRatio * spawnRate));
+                        int womenCount = Math.Min(totalPoints, Math.Max(minWomen, (int)(totalPoints * womenRatio * spawnRate)));
                         var del = TownsWomanDelegate;
                         if (del != null && womenCount > 0)
                             currentLocation.AddLocationCharacters(
