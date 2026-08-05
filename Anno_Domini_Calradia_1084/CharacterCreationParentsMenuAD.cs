@@ -306,6 +306,8 @@ namespace Anno_Domini_Calradia_1084
                     {
                         if (character.StringId.Equals("mother_character"))
                             character.UpdateBodyProperties(motherProps, race, true);
+                        if (character.StringId.Equals("father_character"))
+                            character.UpdateBodyProperties(fatherProps, race, false);
                     }
                 }
             }
