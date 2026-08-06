@@ -22,7 +22,6 @@ namespace Anno_Domini_Calradia_1084.Patches
             {
                 CharacterObject character = __instance.CharacterObject;
                 if (character == null) return;
-                if (__instance.IsFemale) return;
 
                 MBBodyProperty bodyPropertyRange = character.BodyPropertyRange;
                 if (bodyPropertyRange == null) return;
@@ -40,18 +39,24 @@ namespace Anno_Domini_Calradia_1084.Patches
                 int seed = character.GetDefaultFaceSeed(0);
 
                 // Override tattoo tags for lords.
-                // The native engine ignores duplicate tag names, so we
-                // can't weight by repetition. Instead we use the seed
-                // to decide: 60% clean face, 40% scar.
+                // Female lords always get Cleanface.
+                // Male lords: 60% clean face, 40% scar.
                 string lordTattooTags;
-                int tattooRoll = (seed * 31 + character.StringId.Length) % 100;
-                if (tattooRoll < 60)
+                if (character.IsFemale)
                 {
                     lordTattooTags = "Cleanface,";
                 }
                 else
                 {
-                    lordTattooTags = "Scar1,Scar2,Scar3,Scar4,Scar5,Scar6,Scar7,Scar8,Scar9,Scar10,Scar11,Scar13,Scar16,Scar17,";
+                    int tattooRoll = (seed * 31 + character.StringId.Length) % 100;
+                    if (tattooRoll < 60)
+                    {
+                        lordTattooTags = "Cleanface,";
+                    }
+                    else
+                    {
+                        lordTattooTags = "Scar1,Scar2,Scar3,Scar4,Scar5,Scar6,Scar7,Scar8,Scar9,Scar10,Scar11,Scar13,Scar16,Scar17,";
+                    }
                 }
 
                 BodyProperties randomProps = BodyProperties.GetRandomBodyProperties(
@@ -102,14 +107,13 @@ namespace Anno_Domini_Calradia_1084.Patches
             try
             {
                 if (hero == null) return;
-                if (hero.IsFemale) return;
 
                 bool usesAom = false;
 
                 if (isOffspring)
                 {
-                    // Male offspring: check father's template
-                    Hero parent = hero.Father;
+                    // Check same-gender parent's template
+                    Hero parent = hero.IsFemale ? hero.Mother : hero.Father;
                     MBBodyProperty parentRange = parent?.CharacterObject?.BodyPropertyRange;
                     if (parentRange != null && parentRange.StringId.StartsWith("AOM_"))
                         usesAom = true;
@@ -125,11 +129,11 @@ namespace Anno_Domini_Calradia_1084.Patches
 
                 if (!usesAom) return;
 
-                // 60/40 clean/scar ratio, deterministic per hero
+                // 60/40 clean/scar ratio for males, always clean for females
                 int hash = hero.CharacterObject.StringId.GetHashCode();
                 int roll = ((hash >= 0 ? hash : -hash) * 31) % 100;
 
-                if (roll < 60)
+                if (hero.IsFemale || roll < 60)
                 {
                     // Force cleanface — tattoo index 0 = Cleanface
                     BodyProperties props = new BodyProperties(

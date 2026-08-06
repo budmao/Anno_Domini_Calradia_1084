@@ -262,7 +262,6 @@ namespace Anno_Domini_Calradia_1084
 
         new public void UpdateParentEquipment(CharacterCreationManager characterCreationManager, MBEquipmentRoster motherEquipment, MBEquipmentRoster fatherEquipment, string motherAnimation, string fatherAnimation)
         {
-            // Regenerate parent faces with culture-specific appearance
             string cultureId = characterCreationManager.CharacterCreationContent
                 .SelectedCulture?.StringId;
             MBBodyProperty fatherTemplate = cultureId != null
@@ -273,7 +272,7 @@ namespace Anno_Domini_Calradia_1084
             {
                 int race = CharacterObject.PlayerCharacter.Race;
 
-                // Father: full AOM template with culture hair/beard
+                // Father: culture hair/beard
                 BodyProperties fatherProps = BodyProperties.GetRandomBodyProperties(
                     race, false,
                     fatherTemplate.BodyPropertyMin,
@@ -285,7 +284,13 @@ namespace Anno_Domini_Calradia_1084
                 fatherProps = new BodyProperties(
                     new DynamicBodyProperties(33f, 0.5f, 0.5f), fatherProps.StaticProperties);
 
-                // Mother: female AOM template with culture-appropriate hair
+                foreach (NarrativeMenuCharacter character in characterCreationManager.CurrentMenu.Characters)
+                {
+                    if (character.StringId.Equals("father_character"))
+                        character.UpdateBodyProperties(fatherProps, race, false);
+                }
+
+                // Mother: female AOM template
                 MBBodyProperty motherTemplate = Game.Current.ObjectManager
                     .GetObject<MBBodyProperty>("AOM_female_" + cultureId);
 
@@ -306,8 +311,6 @@ namespace Anno_Domini_Calradia_1084
                     {
                         if (character.StringId.Equals("mother_character"))
                             character.UpdateBodyProperties(motherProps, race, true);
-                        if (character.StringId.Equals("father_character"))
-                            character.UpdateBodyProperties(fatherProps, race, false);
                     }
                 }
             }
