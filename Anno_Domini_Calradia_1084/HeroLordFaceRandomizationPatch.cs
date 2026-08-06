@@ -5,6 +5,11 @@ using TaleWorlds.Core;
 
 namespace Anno_Domini_Calradia_1084.Patches
 {
+    // Set to true to enable [LordFace] debug logging
+    public static class LordFaceConfig
+    {
+        public const bool DebugLog = false;
+    }
     /// <summary>
     /// When lords are loaded from XML via Hero.Deserialize, they only take
     /// GetBodyPropertiesMin — no randomization, no hair/beard selection.
@@ -76,7 +81,7 @@ namespace Anno_Domini_Calradia_1084.Patches
                 __instance.Weight = randomProps.DynamicProperties.Weight;
                 __instance.Build = randomProps.DynamicProperties.Build;
 
-                if (Main.DebugMode)
+                if (LordFaceConfig.DebugLog)
                 {
                     Main.Log($"[LordFace] Randomized face for {character.StringId} using {bodyPropertyRange.StringId}");
                 }
@@ -143,7 +148,7 @@ namespace Anno_Domini_Calradia_1084.Patches
                     __result = props.StaticProperties;
                 }
 
-                if (Main.DebugMode)
+                if (LordFaceConfig.DebugLog)
                 {
                     string type = isOffspring ? "offspring" : "template";
                     Main.Log($"[LordFace] Scar ratio applied to {type} {hero.CharacterObject.StringId} (roll={roll}, clean={roll < 60})");

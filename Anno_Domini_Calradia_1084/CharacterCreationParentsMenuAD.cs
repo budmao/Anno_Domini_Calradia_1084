@@ -262,6 +262,7 @@ namespace Anno_Domini_Calradia_1084
 
         new public void UpdateParentEquipment(CharacterCreationManager characterCreationManager, MBEquipmentRoster motherEquipment, MBEquipmentRoster fatherEquipment, string motherAnimation, string fatherAnimation)
         {
+            Main.Log("[ParentMenu] UpdateParentEquipment called");
             string cultureId = characterCreationManager.CharacterCreationContent
                 .SelectedCulture?.StringId;
             MBBodyProperty fatherTemplate = cultureId != null
@@ -272,7 +273,9 @@ namespace Anno_Domini_Calradia_1084
             {
                 int race = CharacterObject.PlayerCharacter.Race;
 
+
                 // Father: culture hair/beard
+                Main.Log($"Father tags — Hair: '{fatherTemplate.HairTags}' Beard: '{fatherTemplate.BeardTags}'");
                 BodyProperties fatherProps = BodyProperties.GetRandomBodyProperties(
                     race, false,
                     fatherTemplate.BodyPropertyMin,
